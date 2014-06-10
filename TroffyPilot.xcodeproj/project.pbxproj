@@ -1,0 +1,493 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		3F0743D719406E4D00E0B938 /* TPSpeedTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F0743D619406E4D00E0B938 /* TPSpeedTransformer.m */; };
+		3F0743DA19406EDA00E0B938 /* TPDistanceTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F0743D919406EDA00E0B938 /* TPDistanceTransformer.m */; };
+		3FBD268D193E25200056D4F1 /* TPViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FBD268B193E25200056D4F1 /* TPViewController.m */; };
+		3FBD268E193E25200056D4F1 /* TPViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3FBD268C193E25200056D4F1 /* TPViewController.xib */; };
+		3FD498B2193E01EA008CBB2A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FD498B1193E01EA008CBB2A /* Foundation.framework */; };
+		3FD498B4193E01EA008CBB2A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FD498B3193E01EA008CBB2A /* CoreGraphics.framework */; };
+		3FD498B6193E01EA008CBB2A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FD498B5193E01EA008CBB2A /* UIKit.framework */; };
+		3FD498BC193E01EA008CBB2A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3FD498BA193E01EA008CBB2A /* InfoPlist.strings */; };
+		3FD498BE193E01EA008CBB2A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FD498BD193E01EA008CBB2A /* main.m */; };
+		3FD498C2193E01EA008CBB2A /* TPAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FD498C1193E01EA008CBB2A /* TPAppDelegate.m */; };
+		3FD498C4193E01EA008CBB2A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3FD498C3193E01EA008CBB2A /* Images.xcassets */; };
+		3FD498CB193E01EA008CBB2A /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FD498CA193E01EA008CBB2A /* XCTest.framework */; };
+		3FD498CC193E01EA008CBB2A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FD498B1193E01EA008CBB2A /* Foundation.framework */; };
+		3FD498CD193E01EA008CBB2A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FD498B5193E01EA008CBB2A /* UIKit.framework */; };
+		3FD498D5193E01EA008CBB2A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3FD498D3193E01EA008CBB2A /* InfoPlist.strings */; };
+		3FD498D7193E01EA008CBB2A /* TroffyPilotTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FD498D6193E01EA008CBB2A /* TroffyPilotTests.m */; };
+		3FD498E1193E0287008CBB2A /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FD498E0193E0287008CBB2A /* CoreLocation.framework */; };
+		3FD498E7193E0E0E008CBB2A /* TPLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FD498E6193E0E0E008CBB2A /* TPLocationManager.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		3FD498CE193E01EA008CBB2A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3FD498A6193E01EA008CBB2A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3FD498AD193E01EA008CBB2A;
+			remoteInfo = TroffyPilot;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		3F0743D519406E4D00E0B938 /* TPSpeedTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPSpeedTransformer.h; sourceTree = "<group>"; };
+		3F0743D619406E4D00E0B938 /* TPSpeedTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPSpeedTransformer.m; sourceTree = "<group>"; };
+		3F0743D819406EDA00E0B938 /* TPDistanceTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPDistanceTransformer.h; sourceTree = "<group>"; };
+		3F0743D919406EDA00E0B938 /* TPDistanceTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPDistanceTransformer.m; sourceTree = "<group>"; };
+		3FBD268A193E25200056D4F1 /* TPViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPViewController.h; sourceTree = "<group>"; };
+		3FBD268B193E25200056D4F1 /* TPViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPViewController.m; sourceTree = "<group>"; };
+		3FBD268C193E25200056D4F1 /* TPViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TPViewController.xib; sourceTree = "<group>"; };
+		3FD498AE193E01EA008CBB2A /* TroffyPilot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TroffyPilot.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		3FD498B1193E01EA008CBB2A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		3FD498B3193E01EA008CBB2A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		3FD498B5193E01EA008CBB2A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		3FD498B9193E01EA008CBB2A /* TroffyPilot-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TroffyPilot-Info.plist"; sourceTree = "<group>"; };
+		3FD498BB193E01EA008CBB2A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		3FD498BD193E01EA008CBB2A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		3FD498BF193E01EA008CBB2A /* TroffyPilot-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TroffyPilot-Prefix.pch"; sourceTree = "<group>"; };
+		3FD498C0193E01EA008CBB2A /* TPAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TPAppDelegate.h; sourceTree = "<group>"; };
+		3FD498C1193E01EA008CBB2A /* TPAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TPAppDelegate.m; sourceTree = "<group>"; };
+		3FD498C3193E01EA008CBB2A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		3FD498C9193E01EA008CBB2A /* TroffyPilotTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TroffyPilotTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		3FD498CA193E01EA008CBB2A /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		3FD498D2193E01EA008CBB2A /* TroffyPilotTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TroffyPilotTests-Info.plist"; sourceTree = "<group>"; };
+		3FD498D4193E01EA008CBB2A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		3FD498D6193E01EA008CBB2A /* TroffyPilotTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TroffyPilotTests.m; sourceTree = "<group>"; };
+		3FD498E0193E0287008CBB2A /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		3FD498E5193E0E0E008CBB2A /* TPLocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPLocationManager.h; sourceTree = "<group>"; };
+		3FD498E6193E0E0E008CBB2A /* TPLocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPLocationManager.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		3FD498AB193E01EA008CBB2A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3FD498E1193E0287008CBB2A /* CoreLocation.framework in Frameworks */,
+				3FD498B4193E01EA008CBB2A /* CoreGraphics.framework in Frameworks */,
+				3FD498B6193E01EA008CBB2A /* UIKit.framework in Frameworks */,
+				3FD498B2193E01EA008CBB2A /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3FD498C6193E01EA008CBB2A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3FD498CB193E01EA008CBB2A /* XCTest.framework in Frameworks */,
+				3FD498CD193E01EA008CBB2A /* UIKit.framework in Frameworks */,
+				3FD498CC193E01EA008CBB2A /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		3FD498A5193E01EA008CBB2A = {
+			isa = PBXGroup;
+			children = (
+				3FD498B7193E01EA008CBB2A /* TroffyPilot */,
+				3FD498D0193E01EA008CBB2A /* TroffyPilotTests */,
+				3FD498B0193E01EA008CBB2A /* Frameworks */,
+				3FD498AF193E01EA008CBB2A /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		3FD498AF193E01EA008CBB2A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				3FD498AE193E01EA008CBB2A /* TroffyPilot.app */,
+				3FD498C9193E01EA008CBB2A /* TroffyPilotTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		3FD498B0193E01EA008CBB2A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3FD498E0193E0287008CBB2A /* CoreLocation.framework */,
+				3FD498B1193E01EA008CBB2A /* Foundation.framework */,
+				3FD498B3193E01EA008CBB2A /* CoreGraphics.framework */,
+				3FD498B5193E01EA008CBB2A /* UIKit.framework */,
+				3FD498CA193E01EA008CBB2A /* XCTest.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		3FD498B7193E01EA008CBB2A /* TroffyPilot */ = {
+			isa = PBXGroup;
+			children = (
+				3FD498C0193E01EA008CBB2A /* TPAppDelegate.h */,
+				3FD498C1193E01EA008CBB2A /* TPAppDelegate.m */,
+				3FD498C3193E01EA008CBB2A /* Images.xcassets */,
+				3FD498B8193E01EA008CBB2A /* Supporting Files */,
+				3FD498E5193E0E0E008CBB2A /* TPLocationManager.h */,
+				3FD498E6193E0E0E008CBB2A /* TPLocationManager.m */,
+				3FBD268A193E25200056D4F1 /* TPViewController.h */,
+				3FBD268B193E25200056D4F1 /* TPViewController.m */,
+				3FBD268C193E25200056D4F1 /* TPViewController.xib */,
+				3F0743D519406E4D00E0B938 /* TPSpeedTransformer.h */,
+				3F0743D619406E4D00E0B938 /* TPSpeedTransformer.m */,
+				3F0743D819406EDA00E0B938 /* TPDistanceTransformer.h */,
+				3F0743D919406EDA00E0B938 /* TPDistanceTransformer.m */,
+			);
+			path = TroffyPilot;
+			sourceTree = "<group>";
+		};
+		3FD498B8193E01EA008CBB2A /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				3FD498B9193E01EA008CBB2A /* TroffyPilot-Info.plist */,
+				3FD498BA193E01EA008CBB2A /* InfoPlist.strings */,
+				3FD498BD193E01EA008CBB2A /* main.m */,
+				3FD498BF193E01EA008CBB2A /* TroffyPilot-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		3FD498D0193E01EA008CBB2A /* TroffyPilotTests */ = {
+			isa = PBXGroup;
+			children = (
+				3FD498D6193E01EA008CBB2A /* TroffyPilotTests.m */,
+				3FD498D1193E01EA008CBB2A /* Supporting Files */,
+			);
+			path = TroffyPilotTests;
+			sourceTree = "<group>";
+		};
+		3FD498D1193E01EA008CBB2A /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				3FD498D2193E01EA008CBB2A /* TroffyPilotTests-Info.plist */,
+				3FD498D3193E01EA008CBB2A /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		3FD498AD193E01EA008CBB2A /* TroffyPilot */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3FD498DA193E01EA008CBB2A /* Build configuration list for PBXNativeTarget "TroffyPilot" */;
+			buildPhases = (
+				3FD498AA193E01EA008CBB2A /* Sources */,
+				3FD498AB193E01EA008CBB2A /* Frameworks */,
+				3FD498AC193E01EA008CBB2A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TroffyPilot;
+			productName = TroffyPilot;
+			productReference = 3FD498AE193E01EA008CBB2A /* TroffyPilot.app */;
+			productType = "com.apple.product-type.application";
+		};
+		3FD498C8193E01EA008CBB2A /* TroffyPilotTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3FD498DD193E01EA008CBB2A /* Build configuration list for PBXNativeTarget "TroffyPilotTests" */;
+			buildPhases = (
+				3FD498C5193E01EA008CBB2A /* Sources */,
+				3FD498C6193E01EA008CBB2A /* Frameworks */,
+				3FD498C7193E01EA008CBB2A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				3FD498CF193E01EA008CBB2A /* PBXTargetDependency */,
+			);
+			name = TroffyPilotTests;
+			productName = TroffyPilotTests;
+			productReference = 3FD498C9193E01EA008CBB2A /* TroffyPilotTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		3FD498A6193E01EA008CBB2A /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = TP;
+				LastUpgradeCheck = 0510;
+				ORGANIZATIONNAME = "___FULLUSERNAME___";
+				TargetAttributes = {
+					3FD498C8193E01EA008CBB2A = {
+						TestTargetID = 3FD498AD193E01EA008CBB2A;
+					};
+				};
+			};
+			buildConfigurationList = 3FD498A9193E01EA008CBB2A /* Build configuration list for PBXProject "TroffyPilot" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 3FD498A5193E01EA008CBB2A;
+			productRefGroup = 3FD498AF193E01EA008CBB2A /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				3FD498AD193E01EA008CBB2A /* TroffyPilot */,
+				3FD498C8193E01EA008CBB2A /* TroffyPilotTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		3FD498AC193E01EA008CBB2A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3FD498BC193E01EA008CBB2A /* InfoPlist.strings in Resources */,
+				3FD498C4193E01EA008CBB2A /* Images.xcassets in Resources */,
+				3FBD268E193E25200056D4F1 /* TPViewController.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3FD498C7193E01EA008CBB2A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3FD498D5193E01EA008CBB2A /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		3FD498AA193E01EA008CBB2A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3FBD268D193E25200056D4F1 /* TPViewController.m in Sources */,
+				3FD498C2193E01EA008CBB2A /* TPAppDelegate.m in Sources */,
+				3FD498BE193E01EA008CBB2A /* main.m in Sources */,
+				3FD498E7193E0E0E008CBB2A /* TPLocationManager.m in Sources */,
+				3F0743DA19406EDA00E0B938 /* TPDistanceTransformer.m in Sources */,
+				3F0743D719406E4D00E0B938 /* TPSpeedTransformer.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3FD498C5193E01EA008CBB2A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3FD498D7193E01EA008CBB2A /* TroffyPilotTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		3FD498CF193E01EA008CBB2A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 3FD498AD193E01EA008CBB2A /* TroffyPilot */;
+			targetProxy = 3FD498CE193E01EA008CBB2A /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		3FD498BA193E01EA008CBB2A /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3FD498BB193E01EA008CBB2A /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		3FD498D3193E01EA008CBB2A /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3FD498D4193E01EA008CBB2A /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		3FD498D8193E01EA008CBB2A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		3FD498D9193E01EA008CBB2A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		3FD498DB193E01EA008CBB2A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "TroffyPilot/TroffyPilot-Prefix.pch";
+				INFOPLIST_FILE = "TroffyPilot/TroffyPilot-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		3FD498DC193E01EA008CBB2A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "TroffyPilot/TroffyPilot-Prefix.pch";
+				INFOPLIST_FILE = "TroffyPilot/TroffyPilot-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		3FD498DE193E01EA008CBB2A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/TroffyPilot.app/TroffyPilot";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "TroffyPilot/TroffyPilot-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "TroffyPilotTests/TroffyPilotTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		3FD498DF193E01EA008CBB2A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/TroffyPilot.app/TroffyPilot";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "TroffyPilot/TroffyPilot-Prefix.pch";
+				INFOPLIST_FILE = "TroffyPilotTests/TroffyPilotTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		3FD498A9193E01EA008CBB2A /* Build configuration list for PBXProject "TroffyPilot" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3FD498D8193E01EA008CBB2A /* Debug */,
+				3FD498D9193E01EA008CBB2A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3FD498DA193E01EA008CBB2A /* Build configuration list for PBXNativeTarget "TroffyPilot" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3FD498DB193E01EA008CBB2A /* Debug */,
+				3FD498DC193E01EA008CBB2A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3FD498DD193E01EA008CBB2A /* Build configuration list for PBXNativeTarget "TroffyPilotTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3FD498DE193E01EA008CBB2A /* Debug */,
+				3FD498DF193E01EA008CBB2A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 3FD498A6193E01EA008CBB2A /* Project object */;
+}
