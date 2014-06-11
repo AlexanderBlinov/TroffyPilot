@@ -41,6 +41,8 @@ typedef enum {
 - (void)locationManager:(TPLocationManager *)manager didUpdatePrimaryDistance:(CLLocationDistance)totalDistance;
 - (void)locationManager:(TPLocationManager *)manager didUpdateSecondaryDistance:(CLLocationDistance)deltaDistance;
 - (void)locationManager:(TPLocationManager *)manager didUpdateCurrentSpeed:(double)currentSpeed;
+- (void)locationManager:(TPLocationManager *)manager didUpdateDistanceToMonitoredLocation:(CLLocationDistance)distance;
+- (void)locationManager:(TPLocationManager *)manager didUpdateDirectionToMonitoredLocation:(CLLocationDirection)direction;
 - (void)locationManager:(TPLocationManager *)manager error:(NSError *)error;
 
 
@@ -50,7 +52,6 @@ typedef enum {
 
 @property (nonatomic) TPLocationManagerState state;
 @property (nonatomic) TPLocationManagerReverse reverse;
-
 @property (nonatomic, weak) id <TPLocationManagerDelegate> delegate;
 
 + (TPLocationManager *)sharedLocationManager;
@@ -62,5 +63,7 @@ typedef enum {
 - (void)resetPrimaryDistance;
 - (void)resetSecondaryDistance;
 - (void)resetSpeed;
+
+- (void)addMarkedLocation;
 
 @end

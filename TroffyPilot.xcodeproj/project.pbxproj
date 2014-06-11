@@ -9,6 +9,11 @@
 /* Begin PBXBuildFile section */
 		3F0743D719406E4D00E0B938 /* TPSpeedTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F0743D619406E4D00E0B938 /* TPSpeedTransformer.m */; };
 		3F0743DA19406EDA00E0B938 /* TPDistanceTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F0743D919406EDA00E0B938 /* TPDistanceTransformer.m */; };
+		3F7D97D7194708AD006A07A1 /* ReverseOff.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F7D97D6194708AD006A07A1 /* ReverseOff.png */; };
+		3F7D97D919470AF9006A07A1 /* ReverseOn.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F7D97D819470AF9006A07A1 /* ReverseOn.png */; };
+		3F7D97DC1947267D006A07A1 /* Start.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F7D97DA1947267D006A07A1 /* Start.png */; };
+		3F7D97DD1947267D006A07A1 /* Stop.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F7D97DB1947267D006A07A1 /* Stop.png */; };
+		3F7D97DF194736EA006A07A1 /* Reset.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F7D97DE194736EA006A07A1 /* Reset.png */; };
 		3FBD268D193E25200056D4F1 /* TPViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FBD268B193E25200056D4F1 /* TPViewController.m */; };
 		3FBD268E193E25200056D4F1 /* TPViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3FBD268C193E25200056D4F1 /* TPViewController.xib */; };
 		3FD498B2193E01EA008CBB2A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FD498B1193E01EA008CBB2A /* Foundation.framework */; };
@@ -42,6 +47,11 @@
 		3F0743D619406E4D00E0B938 /* TPSpeedTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPSpeedTransformer.m; sourceTree = "<group>"; };
 		3F0743D819406EDA00E0B938 /* TPDistanceTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPDistanceTransformer.h; sourceTree = "<group>"; };
 		3F0743D919406EDA00E0B938 /* TPDistanceTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPDistanceTransformer.m; sourceTree = "<group>"; };
+		3F7D97D6194708AD006A07A1 /* ReverseOff.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ReverseOff.png; sourceTree = "<group>"; };
+		3F7D97D819470AF9006A07A1 /* ReverseOn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ReverseOn.png; sourceTree = "<group>"; };
+		3F7D97DA1947267D006A07A1 /* Start.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Start.png; sourceTree = "<group>"; };
+		3F7D97DB1947267D006A07A1 /* Stop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Stop.png; sourceTree = "<group>"; };
+		3F7D97DE194736EA006A07A1 /* Reset.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Reset.png; sourceTree = "<group>"; };
 		3FBD268A193E25200056D4F1 /* TPViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPViewController.h; sourceTree = "<group>"; };
 		3FBD268B193E25200056D4F1 /* TPViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPViewController.m; sourceTree = "<group>"; };
 		3FBD268C193E25200056D4F1 /* TPViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TPViewController.xib; sourceTree = "<group>"; };
@@ -94,6 +104,11 @@
 		3FD498A5193E01EA008CBB2A = {
 			isa = PBXGroup;
 			children = (
+				3F7D97DE194736EA006A07A1 /* Reset.png */,
+				3F7D97DA1947267D006A07A1 /* Start.png */,
+				3F7D97DB1947267D006A07A1 /* Stop.png */,
+				3F7D97D819470AF9006A07A1 /* ReverseOn.png */,
+				3F7D97D6194708AD006A07A1 /* ReverseOff.png */,
 				3FD498B7193E01EA008CBB2A /* TroffyPilot */,
 				3FD498D0193E01EA008CBB2A /* TroffyPilotTests */,
 				3FD498B0193E01EA008CBB2A /* Frameworks */,
@@ -247,9 +262,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3F7D97DD1947267D006A07A1 /* Stop.png in Resources */,
+				3F7D97D7194708AD006A07A1 /* ReverseOff.png in Resources */,
+				3F7D97D919470AF9006A07A1 /* ReverseOn.png in Resources */,
+				3F7D97DC1947267D006A07A1 /* Start.png in Resources */,
 				3FD498BC193E01EA008CBB2A /* InfoPlist.strings in Resources */,
 				3FD498C4193E01EA008CBB2A /* Images.xcassets in Resources */,
 				3FBD268E193E25200056D4F1 /* TPViewController.xib in Resources */,
+				3F7D97DF194736EA006A07A1 /* Reset.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

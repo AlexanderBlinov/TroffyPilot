@@ -15,6 +15,11 @@
 @property (nonatomic, weak) IBOutlet UILabel *primaryDistanceLabel;
 @property (nonatomic, weak) IBOutlet UILabel *secondaryDistanceLabel;
 
+@property (nonatomic, weak) IBOutlet UIButton *primaryStateButton;
+@property (nonatomic, weak) IBOutlet UIButton *secondaryStateButton;
+@property (nonatomic, weak) IBOutlet UIButton *primaryReverseButton;
+@property (nonatomic, weak) IBOutlet UIButton *secondaryReverseButton;
+
 - (IBAction)changeStateAll:(id)sender;
 - (IBAction)changeStateSecondary:(id)sender;
 - (IBAction)reverseAll:(id)sender;
