@@ -278,7 +278,7 @@ static TPLocationManager *locationManagerInstance = nil;
     }
     if (bestLocation != nil) {
         if (self.previousLocation != nil) {
-            NSLog(@"%f", bestLocation.speed);
+            //NSLog(@"%f", bestLocation.speed);
             if (bestLocation.speed >= 0) {
                 self.currentSpeed = bestLocation.speed;
             }

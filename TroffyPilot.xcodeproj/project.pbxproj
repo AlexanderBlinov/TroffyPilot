@@ -17,6 +17,7 @@
 		3FBD268D193E25200056D4F1 /* TPViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FBD268B193E25200056D4F1 /* TPViewController.m */; };
 		3FBD268E193E25200056D4F1 /* TPViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3FBD268C193E25200056D4F1 /* TPViewController.xib */; };
 		3FC1355519485FFF00DC7757 /* Location.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 3FC1355419485FFF00DC7757 /* Location.gpx */; };
+		3FC135571948646000DC7757 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FC135561948646000DC7757 /* Default-568h@2x.png */; };
 		3FD498B2193E01EA008CBB2A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FD498B1193E01EA008CBB2A /* Foundation.framework */; };
 		3FD498B4193E01EA008CBB2A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FD498B3193E01EA008CBB2A /* CoreGraphics.framework */; };
 		3FD498B6193E01EA008CBB2A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FD498B5193E01EA008CBB2A /* UIKit.framework */; };
@@ -57,6 +58,7 @@
 		3FBD268B193E25200056D4F1 /* TPViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPViewController.m; sourceTree = "<group>"; };
 		3FBD268C193E25200056D4F1 /* TPViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TPViewController.xib; sourceTree = "<group>"; };
 		3FC1355419485FFF00DC7757 /* Location.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Location.gpx; sourceTree = "<group>"; };
+		3FC135561948646000DC7757 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		3FD498AE193E01EA008CBB2A /* TroffyPilot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TroffyPilot.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3FD498B1193E01EA008CBB2A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		3FD498B3193E01EA008CBB2A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -106,6 +108,7 @@
 		3FD498A5193E01EA008CBB2A = {
 			isa = PBXGroup;
 			children = (
+				3FC135561948646000DC7757 /* Default-568h@2x.png */,
 				3FC1355419485FFF00DC7757 /* Location.gpx */,
 				3F7D97DE194736EA006A07A1 /* Reset.png */,
 				3F7D97DA1947267D006A07A1 /* Start.png */,
@@ -268,6 +271,7 @@
 				3F7D97DD1947267D006A07A1 /* Stop.png in Resources */,
 				3F7D97D7194708AD006A07A1 /* ReverseOff.png in Resources */,
 				3F7D97D919470AF9006A07A1 /* ReverseOn.png in Resources */,
+				3FC135571948646000DC7757 /* Default-568h@2x.png in Resources */,
 				3F7D97DC1947267D006A07A1 /* Start.png in Resources */,
 				3FD498BC193E01EA008CBB2A /* InfoPlist.strings in Resources */,
 				3FD498C4193E01EA008CBB2A /* Images.xcassets in Resources */,
