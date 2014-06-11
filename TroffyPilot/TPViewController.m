@@ -39,6 +39,7 @@ static const double startSpeedValue = 0.0;
 - (IBAction)reverseSecondary:(id)sender;
 - (IBAction)resetAll:(id)sender;
 - (IBAction)resetSecondary:(id)sender;
+- (IBAction)markLocation:(id)sender;
 
 - (NSString *)stringFromSpeed:(double)speed;
 - (NSString *)stringFromDistance:(CLLocationDistance)distance;
@@ -222,6 +223,12 @@ static const double startSpeedValue = 0.0;
     [manager resetSecondaryDistance];
 }
 
+- (void)markLocation:(id)sender
+{
+    TPLocationManager *manager = [TPLocationManager sharedLocationManager];
+    [manager addMarkedLocation];
+}
+
 #pragma mark - Location manager delegate
 
 - (void)locationManager:(TPLocationManager *)manager didUpdatePrimaryDistance:(CLLocationDistance)primaryDistance
@@ -246,6 +253,16 @@ static const double startSpeedValue = 0.0;
     if (speedResult != nil) {
         self.speedLabel.text = speedResult;
     }
+}
+
+- (void)locationManager:(TPLocationManager *)manager didUpdateDirectionToMonitoredLocation:(CLLocationDirection)direction
+{
+    NSLog(@"Direction: %f", direction);
+}
+
+- (void)locationManager:(TPLocationManager *)manager didUpdateDistanceToMonitoredLocation:(CLLocationDistance)distance
+{
+    NSLog(@"Distance: %f", distance);
 }
 
 - (void)locationManager:(TPLocationManager *)manager error:(NSError *)error

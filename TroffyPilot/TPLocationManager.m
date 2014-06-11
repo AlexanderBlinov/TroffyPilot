@@ -8,8 +8,8 @@
 
 #import "TPLocationManager.h"
 
-static const NSUInteger kDistanceFilter = 1;
-static const NSUInteger kHeadingFilter = 5;
+static const NSUInteger kDistanceFilter = 10;
+static const NSUInteger kHeadingFilter = 10;
 static const CGFloat kRequiredHorizontalAccuracy = 20.0;
 static const CGFloat kMaximumAcceptableHorizontalAccuracy = 70.0;
 static const NSUInteger kMinLocationUpdateInterval = 10;
@@ -24,7 +24,6 @@ static const NSUInteger kGPSRefinmentIntereval = 15;
 @property (nonatomic, strong) CLLocationManager *locationManager;
 @property (nonatomic) CLLocationDistance primaryDistance;
 @property (nonatomic) CLLocationDistance secondaryDistance;
-@property (nonatomic) CLHeading *deviceHeading;
 @property (nonatomic) double currentSpeed;
 @property (nonatomic, strong) NSTimer *locationPingTimer;
 @property (nonatomic, strong) CLLocation *previousLocation;
@@ -98,7 +97,7 @@ static TPLocationManager *locationManagerInstance = nil;
 {
     if ([CLLocationManager locationServicesEnabled]) {
         [self.locationManager startUpdatingLocation];
-        //NSLog(@"%f %f", [[self.locationManager location] coordinate].latitude, [[self.locationManager location ] coordinate].longitude);
+        NSLog(@"%f %f", [[self.locationManager location] coordinate].latitude, [[self.locationManager location ] coordinate].longitude);
         return YES;
     } else {
         return NO;
@@ -178,7 +177,7 @@ static TPLocationManager *locationManagerInstance = nil;
 - (CLLocationDirection)directionToMonitoredLocation
 {
     CLLocation *currentLocation = [self.locationManager location];
-    CLLocationDirection alpha = atan(abs((currentLocation.coordinate.latitude - self.monitoredLocation.coordinate.latitude) / (currentLocation.coordinate.longitude - self.monitoredLocation.coordinate.longitude)));
+    CLLocationDirection alpha = atan(abs((currentLocation.coordinate.latitude - self.monitoredLocation.coordinate.latitude) / (currentLocation.coordinate.longitude - self.monitoredLocation.coordinate.longitude))) * 180.0 / M_PI;
     CLLocationDirection result = 0.0;
     if (currentLocation.coordinate.longitude > self.monitoredLocation.coordinate.longitude) {
         result += 180.0;
@@ -240,7 +239,16 @@ static TPLocationManager *locationManagerInstance = nil;
 {
     _monitoredLocation = monitoredLocation;
     if (monitoredLocation) {
-        [self.locationManager startUpdatingHeading];
+        if ([self.delegate respondsToSelector:@selector(locationManager:didUpdateDistanceToMonitoredLocation:)]) {
+            [self.delegate locationManager:self didUpdateDistanceToMonitoredLocation:self.distanceToMonitoredLocation];
+        }
+        if ([CLLocationManager headingAvailable]) {
+            [self.locationManager startUpdatingHeading];
+            if ([self.delegate respondsToSelector:@selector(locationManager:didUpdateDirectionToMonitoredLocation:)]) {
+                [self.delegate locationManager:self didUpdateDirectionToMonitoredLocation:self.directionToMonitoredLocation];
+            }
+        }
+        
     } else {
         [self.locationManager stopUpdatingHeading];
     }
@@ -277,22 +285,23 @@ static TPLocationManager *locationManagerInstance = nil;
         }
     }
     if (bestLocation != nil) {
+        //NSLog(@"%f", bestLocation.speed);
+        if (bestLocation.speed >= 0) {
+            self.currentSpeed = bestLocation.speed;
+        }
         if (self.previousLocation != nil) {
-            //NSLog(@"%f", bestLocation.speed);
-            if (bestLocation.speed >= 0) {
-                self.currentSpeed = bestLocation.speed;
-            }
-            if (self.previousLocation != nil) {
+            CLLocationDistance distanceUpdate = [bestLocation distanceFromLocation:self.previousLocation];
+            if (distanceUpdate >= kDistanceFilter) {
                 if (self.state == TPLocationManagerStartedAll) {
-                    self.primaryDistance += [bestLocation distanceFromLocation:self.previousLocation] * ((self.reverse == TPLocationManagerReverseNone || self.reverse == TPLocationManagerReverseSecondary) ? 1 : -1);
-                    self.secondaryDistance += [bestLocation distanceFromLocation:self.previousLocation] * ((self.reverse == TPLocationManagerReverseNone || self.reverse == TPLocationManagerReversePrimary) ? 1 : -1);
+                    self.primaryDistance += distanceUpdate * ((self.reverse == TPLocationManagerReverseNone || self.reverse == TPLocationManagerReverseSecondary) ? 1 : -1);
+                    self.secondaryDistance += distanceUpdate * ((self.reverse == TPLocationManagerReverseNone || self.reverse == TPLocationManagerReversePrimary) ? 1 : -1);
                     //NSLog(@"%f %f\n%f %f", [self.previousLocation coordinate].latitude, [self.previousLocation coordinate].longitude,[bestLocation coordinate].latitude, [bestLocation coordinate].longitude);
                 }
                 if (self.state == TPLocationManagerStartedPrimary) {
-                    self.primaryDistance += [bestLocation distanceFromLocation:self.previousLocation] * ((self.reverse == TPLocationManagerReverseNone || self.reverse == TPLocationManagerReverseSecondary) ? 1 : -1);
+                    self.primaryDistance += distanceUpdate * ((self.reverse == TPLocationManagerReverseNone || self.reverse == TPLocationManagerReverseSecondary) ? 1 : -1);
                 }
                 if (self.state == TPLocationManagerStartedSecondary) {
-                    self.secondaryDistance += [bestLocation distanceFromLocation:self.previousLocation] * ((self.reverse == TPLocationManagerReverseNone || self.reverse == TPLocationManagerReversePrimary) ? 1 : -1);
+                    self.secondaryDistance += distanceUpdate * ((self.reverse == TPLocationManagerReverseNone || self.reverse == TPLocationManagerReversePrimary) ? 1 : -1);
                 }
             }
         }

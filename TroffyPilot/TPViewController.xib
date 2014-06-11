@@ -102,6 +102,16 @@
                         <action selector="resetSecondary:" destination="-1" eventType="touchUpInside" id="xZu-ld-Nmc"/>
                     </connections>
                 </button>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aoH-sm-2SY">
+                    <rect key="frame" x="52" y="145" width="46" height="30"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <state key="normal" title="Button">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="markLocation:" destination="-1" eventType="touchUpInside" id="D2G-S7-Xuw"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" red="0.19899952168367352" green="0.19899952168367352" blue="0.19899952168367352" alpha="1" colorSpace="calibratedRGB"/>
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
