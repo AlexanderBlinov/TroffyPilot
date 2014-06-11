@@ -59,7 +59,6 @@ typedef enum {
 - (BOOL)prepareToLocatioUpdates;
 - (BOOL)startLocationUpdates;
 - (void)stopLocationUpdates;
-
 - (void)resetPrimaryDistance;
 - (void)resetSecondaryDistance;
 - (void)resetSpeed;
