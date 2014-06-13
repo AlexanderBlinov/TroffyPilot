@@ -7,23 +7,25 @@
 //
 
 #import "TPViewController.h"
-#import "TPLocationManager.h"
+#import "TPDistanceTracker.h"
+#import "TPSpeedTracker.h"
 #import "TPDistanceTransformer.h"
 #import "TPSpeedTransformer.h"
+#import "NSString+DistanceAndSpeed.h"
 
-static NSString * const kDistanceSuffix = @" km";
-static NSString * const kSpeedSuffix = @" km/h";
 static NSString * const kReverseOn = @"ReverseOn.png";
 static NSString * const kReverseOff = @"ReverseOff.png";
 static NSString * const kStart = @"Start.png";
 static NSString * const kStop = @"Stop.png";
-static NSString * const kErrorTitle = @"Unable to determine location";
-static const CLLocationDistance startDistanceValue = 0.0;
-static const double startSpeedValue = 0.0;
+static NSString * const kTrackerErrorTitle = @"Unable to determine location";
+static const double kStartDistanceValue = 0.0;
+static const double kStartSpeedValue = 0.0;
 
 @interface TPViewController ()
 
-@property (strong, nonatomic) CLLocationManager *manager;
+@property (nonatomic, strong) TPDistanceTracker *primaryTracker;
+@property (nonatomic, strong) TPDistanceTracker *secondaryTracker;
+@property (nonatomic, strong) TPSpeedTracker *speedTracker;
 
 @property (nonatomic, weak) IBOutlet UILabel *speedLabel;
 @property (nonatomic, weak) IBOutlet UILabel *primaryDistanceLabel;
@@ -33,16 +35,17 @@ static const double startSpeedValue = 0.0;
 @property (nonatomic, weak) IBOutlet UIButton *primaryReverseButton;
 @property (nonatomic, weak) IBOutlet UIButton *secondaryReverseButton;
 
-- (IBAction)changeStateAll:(id)sender;
+- (IBAction)changeStatePrimary:(id)sender;
 - (IBAction)changeStateSecondary:(id)sender;
-- (IBAction)reverseAll:(id)sender;
+- (IBAction)reversePrimary:(id)sender;
 - (IBAction)reverseSecondary:(id)sender;
-- (IBAction)resetAll:(id)sender;
+- (IBAction)resetPrimary:(id)sender;
 - (IBAction)resetSecondary:(id)sender;
-- (IBAction)markLocation:(id)sender;
+- (IBAction)trackLocation:(id)sender;
 
-- (NSString *)stringFromSpeed:(double)speed;
-- (NSString *)stringFromDistance:(CLLocationDistance)distance;
+- (void)changeTrackerState:(TPDistanceTracker *)tracker withButton:(UIButton *)button;
+- (void)changeTrackerReverse:(TPDistanceTracker *)tracker withButton:(UIButton *)button;
+- (void)resetTracker:(TPDistanceTracker *)tracker;
 
 @end
 
@@ -52,10 +55,15 @@ static const double startSpeedValue = 0.0;
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        TPLocationManager *locationManager = [TPLocationManager sharedLocationManager];
-        locationManager.delegate = self;
-        locationManager.state = TPLocationManagerStopedAll;
-        locationManager.reverse = TPLocationManagerReverseNone;
+        self.primaryTracker = [[TPDistanceTracker alloc] init];
+        self.primaryTracker.isReverse = NO;
+        self.primaryTracker.delegate = self;
+        self.secondaryTracker = [[TPDistanceTracker alloc] init];
+        self.secondaryTracker.isReverse = NO;
+        self.secondaryTracker.delegate = self;
+        self.speedTracker = [[TPSpeedTracker alloc] init];
+        self.speedTracker.delegate = self;
+        [self.speedTracker startTracking];
     }
     return self;
 }
@@ -64,14 +72,9 @@ static const double startSpeedValue = 0.0;
 {
     [super viewDidLoad];
     [self setNeedsStatusBarAppearanceUpdate];
-    self.primaryDistanceLabel.text = [self stringFromDistance:startDistanceValue];
-    self.secondaryDistanceLabel.text = [self stringFromDistance:startDistanceValue];
-    self.speedLabel.text = [self stringFromSpeed:startSpeedValue];
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
+    self.primaryDistanceLabel.text = [NSString stringWithDistance:kStartDistanceValue];
+    self.secondaryDistanceLabel.text = [NSString stringWithDistance:kStartDistanceValue];
+    self.speedLabel.text = [NSString stringWithSpeed:kStartSpeedValue];
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle
@@ -79,197 +82,113 @@ static const double startSpeedValue = 0.0;
     return UIStatusBarStyleLightContent;
 }
 
-- (NSString *)stringFromDistance:(CLLocationDistance)distance
+- (void)changeTrackerState:(TPDistanceTracker *)tracker withButton:(UIButton *)button
 {
-    TPDistanceTransformer *transformer = [[TPDistanceTransformer alloc] init];
-    NSNumber *transformedDistance = [transformer transformedValue:[NSNumber numberWithDouble:distance]];
-    NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
-    [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
-    [formatter setMinimumFractionDigits:3];
-    [formatter setMaximumFractionDigits:3];
-    NSString *result = [[formatter stringFromNumber:transformedDistance] stringByAppendingString:kDistanceSuffix];
-    return result;
+    if (tracker.isStarted) {
+        [tracker stopTracking];
+        [button setImage:[UIImage imageNamed:kStart] forState:UIControlStateNormal];
+    } else {
+        [tracker startTracking];
+        [button setImage:[UIImage imageNamed:kStop] forState:UIControlStateNormal];
+    }
 }
 
-- (NSString *)stringFromSpeed:(double)speed
+- (void)changeTrackerReverse:(TPDistanceTracker *)tracker withButton:(UIButton *)button
 {
-    TPSpeedTransformer *transformer = [[TPSpeedTransformer alloc] init];
-    NSNumber *transformedSpeed = [transformer transformedValue:[NSNumber numberWithDouble:speed]];
-    NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
-    [formatter setRoundingMode:NSNumberFormatterRoundCeiling];
-    NSString *result = [[formatter stringFromNumber:transformedSpeed] stringByAppendingString:kSpeedSuffix];
-    return result;
+    if (tracker.isReverse) {
+        tracker.isReverse = NO;
+        [button setImage:[UIImage imageNamed:kReverseOff] forState:UIControlStateNormal];
+    } else {
+        tracker.isReverse = YES;
+        [button setImage:[UIImage imageNamed:kReverseOn] forState:UIControlStateNormal];
+    }
+}
+
+- (void)resetTracker:(TPDistanceTracker *)tracker
+{
+    [tracker reset];
 }
 
 #pragma mark - Target-Action
 
-- (void)changeStateAll:(id)sender
+- (IBAction)changeStatePrimary:(id)sender
 {
-    TPLocationManager *manager = [TPLocationManager sharedLocationManager];
-    switch (manager.state) {
-        case TPLocationManagerStopedAll:
-            manager.state = TPLocationManagerStartedAll;
-            [manager startLocationUpdates];
-            [self.primaryStateButton setImage:[UIImage imageNamed:kStop] forState:UIControlStateNormal];
-            [self.secondaryStateButton setImage:[UIImage imageNamed:kStop] forState:UIControlStateNormal];
-            break;
-        case TPLocationManagerStartedAll:
-            manager.state = TPLocationManagerStopedAll;
-            [self.primaryStateButton setImage:[UIImage imageNamed:kStart] forState:UIControlStateNormal];
-            [self.secondaryStateButton setImage:[UIImage imageNamed:kStart] forState:UIControlStateNormal];
-            [manager stopLocationUpdates];
-            break;
-        case TPLocationManagerStartedPrimary:
-            manager.state = TPLocationManagerStopedAll;
-            [self.primaryStateButton setImage:[UIImage imageNamed:kStart] forState:UIControlStateNormal];
-            [manager stopLocationUpdates];
-            break;
-        case TPLocationManagerStartedSecondary:
-            manager.state = TPLocationManagerStartedAll;
-            [self.secondaryStateButton setImage:[UIImage imageNamed:kStop] forState:UIControlStateNormal];
-            break;
-        default:
-            break;
+    [self changeTrackerState:self.primaryTracker withButton:self.primaryStateButton];
+    [self changeTrackerState:self.secondaryTracker withButton:self.secondaryStateButton];
+}
+
+- (IBAction)changeStateSecondary:(id)sender
+{
+    [self changeTrackerState:self.secondaryTracker withButton:self.secondaryStateButton];
+}
+
+- (IBAction)reversePrimary:(id)sender
+{
+    [self changeTrackerReverse:self.primaryTracker withButton:self.primaryReverseButton];
+    [self changeTrackerReverse:self.secondaryTracker withButton:self.secondaryReverseButton];
+}
+
+- (IBAction)reverseSecondary:(id)sender
+{
+    [self changeTrackerReverse:self.secondaryTracker withButton:self.secondaryReverseButton];
+}
+
+- (IBAction)resetPrimary:(id)sender
+{
+    [self resetTracker:self.primaryTracker];
+    [self resetTracker:self.secondaryTracker];
+}
+
+- (IBAction)resetSecondary:(id)sender
+{
+    [self resetTracker:self.secondaryTracker];
+}
+
+- (IBAction)trackLocation:(id)sender
+{
+    
+}
+
+#pragma mark - Distance tracker delegate
+
+- (void)distanceTracker:(TPDistanceTracker *)tracker didUpdateDistance:(double)distance
+{
+    NSString *distanceResult = [NSString stringWithDistance:distance];
+    if ([distanceResult length] > 0) {
+        if (tracker == self.primaryTracker) {
+            self.primaryDistanceLabel.text = distanceResult;
+        } else if (tracker == self.secondaryTracker) {
+            self.secondaryDistanceLabel.text = distanceResult;
+        }
     }
 }
 
-- (void)changeStateSecondary:(id)sender
-{
-    TPLocationManager *manager = [TPLocationManager sharedLocationManager];
-    switch (manager.state) {
-        case TPLocationManagerStartedAll:
-            manager.state = TPLocationManagerStartedPrimary;
-            [self.secondaryStateButton setImage:[UIImage imageNamed:kStart] forState:UIControlStateNormal];
-            break;
-        case TPLocationManagerStopedAll:
-            manager.state = TPLocationManagerStartedSecondary;
-            [self.secondaryStateButton setImage:[UIImage imageNamed:kStop] forState:UIControlStateNormal];
-            [manager startLocationUpdates];
-            break;
-        case TPLocationManagerStartedSecondary:
-            manager.state = TPLocationManagerStopedAll;
-            [self.secondaryStateButton setImage:[UIImage imageNamed:kStart] forState:UIControlStateNormal];
-            [manager stopLocationUpdates];
-            break;
-        case TPLocationManagerStartedPrimary:
-            manager.state = TPLocationManagerStartedAll;
-            [self.secondaryStateButton setImage:[UIImage imageNamed:kStop] forState:UIControlStateNormal];
-            break;
-        default:
-            break;
-    }
-}
+#pragma mark - Speed tracker delegate
 
-- (void)reverseAll:(id)sender
+- (void)speedTracker:(TPSpeedTracker *)tracker didUpdateSpeed:(double)speed
 {
-    TPLocationManager *manager = [TPLocationManager sharedLocationManager];
-    switch (manager.reverse) {
-        case TPLocationManagerReverseNone:
-            manager.reverse = TPLocationManagerReverseAll;
-            [self.primaryReverseButton setImage:[UIImage imageNamed:kReverseOn] forState:UIControlStateNormal];
-            [self.secondaryReverseButton setImage:[UIImage imageNamed:kReverseOn] forState:UIControlStateNormal];
-            break;
-        case TPLocationManagerReverseAll:
-            manager.reverse = TPLocationManagerReverseNone;
-            [self.primaryReverseButton setImage:[UIImage imageNamed:kReverseOff] forState:UIControlStateNormal];
-            [self.secondaryReverseButton setImage:[UIImage imageNamed:kReverseOff] forState:UIControlStateNormal];
-            break;
-        case TPLocationManagerReversePrimary:
-            manager.reverse = TPLocationManagerReverseNone;
-            [self.primaryReverseButton setImage:[UIImage imageNamed:kReverseOff] forState:UIControlStateNormal];
-            break;
-        case TPLocationManagerReverseSecondary:
-            manager.reverse = TPLocationManagerReverseAll;
-            [self.primaryReverseButton setImage:[UIImage imageNamed:kReverseOn] forState:UIControlStateNormal];
-        default:
-            break;
-    }
-}
-
-- (void)reverseSecondary:(id)sender
-{
-    TPLocationManager *manager = [TPLocationManager sharedLocationManager];
-    switch (manager.reverse) {
-        case TPLocationManagerReverseNone:
-            manager.reverse = TPLocationManagerReverseSecondary;
-            [self.secondaryReverseButton setImage:[UIImage imageNamed:kReverseOn] forState:UIControlStateNormal];
-            break;
-        case TPLocationManagerReverseAll:
-            manager.reverse = TPLocationManagerReversePrimary;
-            [self.secondaryReverseButton setImage:[UIImage imageNamed:kReverseOff] forState:UIControlStateNormal];
-            break;
-        case TPLocationManagerReversePrimary:
-            manager.reverse = TPLocationManagerReverseAll;
-            [self.secondaryReverseButton setImage:[UIImage imageNamed:kReverseOn] forState:UIControlStateNormal];
-            break;
-        case TPLocationManagerReverseSecondary:
-            manager.reverse = TPLocationManagerReverseNone;
-            [self.secondaryReverseButton setImage:[UIImage imageNamed:kReverseOff] forState:UIControlStateNormal];
-        default:
-            break;
-    }
-}
-
-- (void)resetAll:(id)sender
-{
-    TPLocationManager *manager = [TPLocationManager sharedLocationManager];
-    [manager resetPrimaryDistance];
-    [manager resetSecondaryDistance];
-}
-
-- (void)resetSecondary:(id)sender
-{
-    TPLocationManager *manager = [TPLocationManager sharedLocationManager];
-    [manager resetSecondaryDistance];
-}
-
-- (void)markLocation:(id)sender
-{
-    TPLocationManager *manager = [TPLocationManager sharedLocationManager];
-    [manager addMarkedLocation];
-}
-
-#pragma mark - Location manager delegate
-
-- (void)locationManager:(TPLocationManager *)manager didUpdatePrimaryDistance:(CLLocationDistance)primaryDistance
-{
-    NSString *distanceResult = [self stringFromDistance:primaryDistance];
-    if (distanceResult != nil) {
-        self.primaryDistanceLabel.text = distanceResult;
-    }
-}
-
-- (void)locationManager:(TPLocationManager *)manager didUpdateSecondaryDistance:(CLLocationDistance)secondaryDistance
-{
-    NSString *distanceResult = [self stringFromDistance:secondaryDistance];
-    if (distanceResult != nil) {
-        self.secondaryDistanceLabel.text = distanceResult;
-    }
-}
-
-- (void)locationManager:(TPLocationManager *)manager didUpdateCurrentSpeed:(double)currentSpeed
-{
-    NSString *speedResult = [self stringFromSpeed:currentSpeed];
-    if (speedResult != nil) {
+    NSString *speedResult = [NSString stringWithSpeed:speed];
+    if ([speedResult length] > 0) {
         self.speedLabel.text = speedResult;
     }
 }
 
-- (void)locationManager:(TPLocationManager *)manager didUpdateDirectionToMonitoredLocation:(CLLocationDirection)direction
+- (void)speedTracker:(TPSpeedTracker *)tracker error:(NSError *)error
 {
-    NSLog(@"Direction: %f", direction);
-}
-
-- (void)locationManager:(TPLocationManager *)manager didUpdateDistanceToMonitoredLocation:(CLLocationDistance)distance
-{
-    NSLog(@"Distance: %f", distance);
-}
-
-- (void)locationManager:(TPLocationManager *)manager error:(NSError *)error
-{
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:kErrorTitle message:[error localizedDescription] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:kTrackerErrorTitle message:[error localizedDescription] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
     [alert show];
 }
 
+#pragma mark - Location tracker delegate
+
+- (void)locationTracker:(TPLocationTracker *)tracker didUpdateDistance:(double)distance
+{
+    
+}
+
+- (void)locationTracker:(TPLocationTracker *)tracker didUpdateDirection:(double)direction
+{
+    
+}
 
 @end

@@ -49,7 +49,7 @@
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <connections>
-                        <action selector="reverseAll:" destination="-1" eventType="touchUpInside" id="8Tx-KC-NcV"/>
+                        <action selector="reversePrimary:" destination="-1" eventType="touchUpInside" id="pLt-A7-noe"/>
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ffH-7V-7t4">
@@ -69,7 +69,7 @@
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <connections>
-                        <action selector="changeStateAll:" destination="-1" eventType="touchUpInside" id="teF-Xs-Asj"/>
+                        <action selector="changeStatePrimary:" destination="-1" eventType="touchUpInside" id="qqd-jJ-zHg"/>
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eRv-nS-F3j">
@@ -89,7 +89,7 @@
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <connections>
-                        <action selector="resetAll:" destination="-1" eventType="touchUpInside" id="Wv8-Bz-cmL"/>
+                        <action selector="resetPrimary:" destination="-1" eventType="touchUpInside" id="L9w-gd-Fh3"/>
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mVF-nv-qzC">
@@ -100,16 +100,6 @@
                     </state>
                     <connections>
                         <action selector="resetSecondary:" destination="-1" eventType="touchUpInside" id="xZu-ld-Nmc"/>
-                    </connections>
-                </button>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aoH-sm-2SY">
-                    <rect key="frame" x="52" y="145" width="46" height="30"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <state key="normal" title="Button">
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <connections>
-                        <action selector="markLocation:" destination="-1" eventType="touchUpInside" id="D2G-S7-Xuw"/>
                     </connections>
                 </button>
             </subviews>

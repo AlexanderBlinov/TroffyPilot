@@ -7,9 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "TPLocationManager.h"
+#import "TPDistanceTrackerDelegate.h"
+#import "TPSpeedTrackerDelegate.h"
+#import "TPLocationTrackerDelegate.h"
 
-@interface TPViewController : UIViewController <TPLocationManagerDelegate, CLLocationManagerDelegate>
+@interface TPViewController : UIViewController <TPDistanceTrackerDelegate, TPSpeedTrackerDelegate, TPLocationTrackerDelegate>
 
 
 

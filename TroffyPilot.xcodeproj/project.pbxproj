@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		3F0743D719406E4D00E0B938 /* TPSpeedTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F0743D619406E4D00E0B938 /* TPSpeedTransformer.m */; };
 		3F0743DA19406EDA00E0B938 /* TPDistanceTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F0743D919406EDA00E0B938 /* TPDistanceTransformer.m */; };
+		3F6D394B1949D035002C596A /* TPLocationTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F6D394A1949D035002C596A /* TPLocationTracker.m */; };
+		3F7C69081948ADF400B60796 /* TPSpeedTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F7C69071948ADF400B60796 /* TPSpeedTracker.m */; };
+		3F7C690B1948AF8F00B60796 /* NSString+DistanceAndSpeed.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F7C690A1948AF8F00B60796 /* NSString+DistanceAndSpeed.m */; };
+		3F7C690E1948B37700B60796 /* TPDistanceTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F7C690D1948B37700B60796 /* TPDistanceTracker.m */; };
 		3F7D97D7194708AD006A07A1 /* ReverseOff.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F7D97D6194708AD006A07A1 /* ReverseOff.png */; };
 		3F7D97D919470AF9006A07A1 /* ReverseOn.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F7D97D819470AF9006A07A1 /* ReverseOn.png */; };
 		3F7D97DC1947267D006A07A1 /* Start.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F7D97DA1947267D006A07A1 /* Start.png */; };
@@ -30,7 +34,6 @@
 		3FD498D5193E01EA008CBB2A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3FD498D3193E01EA008CBB2A /* InfoPlist.strings */; };
 		3FD498D7193E01EA008CBB2A /* TroffyPilotTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FD498D6193E01EA008CBB2A /* TroffyPilotTests.m */; };
 		3FD498E1193E0287008CBB2A /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FD498E0193E0287008CBB2A /* CoreLocation.framework */; };
-		3FD498E7193E0E0E008CBB2A /* TPLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FD498E6193E0E0E008CBB2A /* TPLocationManager.m */; };
 		3FD6E8331948979E00BA36ED /* Location.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 3FD6E8321948979E00BA36ED /* Location.gpx */; };
 /* End PBXBuildFile section */
 
@@ -49,6 +52,17 @@
 		3F0743D619406E4D00E0B938 /* TPSpeedTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPSpeedTransformer.m; sourceTree = "<group>"; };
 		3F0743D819406EDA00E0B938 /* TPDistanceTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPDistanceTransformer.h; sourceTree = "<group>"; };
 		3F0743D919406EDA00E0B938 /* TPDistanceTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPDistanceTransformer.m; sourceTree = "<group>"; };
+		3F6D39491949D034002C596A /* TPLocationTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPLocationTracker.h; sourceTree = "<group>"; };
+		3F6D394A1949D035002C596A /* TPLocationTracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPLocationTracker.m; sourceTree = "<group>"; };
+		3F6D394C1949E63D002C596A /* TPLocationTrackerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPLocationTrackerDelegate.h; sourceTree = "<group>"; };
+		3F7C69051948ADD400B60796 /* TPSpeedTrackerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPSpeedTrackerDelegate.h; sourceTree = "<group>"; };
+		3F7C69061948ADF400B60796 /* TPSpeedTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPSpeedTracker.h; sourceTree = "<group>"; };
+		3F7C69071948ADF400B60796 /* TPSpeedTracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPSpeedTracker.m; sourceTree = "<group>"; };
+		3F7C69091948AF8F00B60796 /* NSString+DistanceAndSpeed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+DistanceAndSpeed.h"; sourceTree = "<group>"; };
+		3F7C690A1948AF8F00B60796 /* NSString+DistanceAndSpeed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+DistanceAndSpeed.m"; sourceTree = "<group>"; };
+		3F7C690C1948B37700B60796 /* TPDistanceTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPDistanceTracker.h; sourceTree = "<group>"; };
+		3F7C690D1948B37700B60796 /* TPDistanceTracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPDistanceTracker.m; sourceTree = "<group>"; };
+		3F7C690F1948B38C00B60796 /* TPDistanceTrackerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPDistanceTrackerDelegate.h; sourceTree = "<group>"; };
 		3F7D97D6194708AD006A07A1 /* ReverseOff.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ReverseOff.png; sourceTree = "<group>"; };
 		3F7D97D819470AF9006A07A1 /* ReverseOn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ReverseOn.png; sourceTree = "<group>"; };
 		3F7D97DA1947267D006A07A1 /* Start.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Start.png; sourceTree = "<group>"; };
@@ -75,8 +89,6 @@
 		3FD498D4193E01EA008CBB2A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		3FD498D6193E01EA008CBB2A /* TroffyPilotTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TroffyPilotTests.m; sourceTree = "<group>"; };
 		3FD498E0193E0287008CBB2A /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
-		3FD498E5193E0E0E008CBB2A /* TPLocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPLocationManager.h; sourceTree = "<group>"; };
-		3FD498E6193E0E0E008CBB2A /* TPLocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPLocationManager.m; sourceTree = "<group>"; };
 		3FD6E8321948979E00BA36ED /* Location.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Location.gpx; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -146,12 +158,19 @@
 		3FD498B7193E01EA008CBB2A /* TroffyPilot */ = {
 			isa = PBXGroup;
 			children = (
+				3F7C69061948ADF400B60796 /* TPSpeedTracker.h */,
+				3F7C69071948ADF400B60796 /* TPSpeedTracker.m */,
+				3F7C69051948ADD400B60796 /* TPSpeedTrackerDelegate.h */,
+				3F7C690C1948B37700B60796 /* TPDistanceTracker.h */,
+				3F7C690D1948B37700B60796 /* TPDistanceTracker.m */,
+				3F7C690F1948B38C00B60796 /* TPDistanceTrackerDelegate.h */,
+				3F6D39491949D034002C596A /* TPLocationTracker.h */,
+				3F6D394A1949D035002C596A /* TPLocationTracker.m */,
+				3F6D394C1949E63D002C596A /* TPLocationTrackerDelegate.h */,
 				3FD498C0193E01EA008CBB2A /* TPAppDelegate.h */,
 				3FD498C1193E01EA008CBB2A /* TPAppDelegate.m */,
 				3FD498C3193E01EA008CBB2A /* Images.xcassets */,
 				3FD498B8193E01EA008CBB2A /* Supporting Files */,
-				3FD498E5193E0E0E008CBB2A /* TPLocationManager.h */,
-				3FD498E6193E0E0E008CBB2A /* TPLocationManager.m */,
 				3FBD268A193E25200056D4F1 /* TPViewController.h */,
 				3FBD268B193E25200056D4F1 /* TPViewController.m */,
 				3FBD268C193E25200056D4F1 /* TPViewController.xib */,
@@ -159,6 +178,8 @@
 				3F0743D619406E4D00E0B938 /* TPSpeedTransformer.m */,
 				3F0743D819406EDA00E0B938 /* TPDistanceTransformer.h */,
 				3F0743D919406EDA00E0B938 /* TPDistanceTransformer.m */,
+				3F7C69091948AF8F00B60796 /* NSString+DistanceAndSpeed.h */,
+				3F7C690A1948AF8F00B60796 /* NSString+DistanceAndSpeed.m */,
 			);
 			path = TroffyPilot;
 			sourceTree = "<group>";
@@ -296,12 +317,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3F7C690B1948AF8F00B60796 /* NSString+DistanceAndSpeed.m in Sources */,
 				3FBD268D193E25200056D4F1 /* TPViewController.m in Sources */,
+				3F7C69081948ADF400B60796 /* TPSpeedTracker.m in Sources */,
 				3FD498C2193E01EA008CBB2A /* TPAppDelegate.m in Sources */,
+				3F7C690E1948B37700B60796 /* TPDistanceTracker.m in Sources */,
 				3FD498BE193E01EA008CBB2A /* main.m in Sources */,
-				3FD498E7193E0E0E008CBB2A /* TPLocationManager.m in Sources */,
 				3F0743DA19406EDA00E0B938 /* TPDistanceTransformer.m in Sources */,
 				3F0743D719406E4D00E0B938 /* TPSpeedTransformer.m in Sources */,
+				3F6D394B1949D035002C596A /* TPLocationTracker.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

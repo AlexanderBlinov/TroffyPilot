@@ -1,0 +1,20 @@
+//
+//  TPLocationTracker.h
+//  TroffyPilot
+//
+//  Created by student on 6/12/14.
+//  Copyright (c) 2014 student. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+#import <CoreLocation/CoreLocation.h>
+#import "TPLocationTrackerDelegate.h"
+
+@interface TPLocationTracker : NSObject <CLLocationManagerDelegate>
+
+@property (nonatomic, weak) id <TPLocationTrackerDelegate> delegate;
+@property (nonatomic, strong) CLLocation *trackingLocation;
+
+- (void)addLocation;
+
+@end
