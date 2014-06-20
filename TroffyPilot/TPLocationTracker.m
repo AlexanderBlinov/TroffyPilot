@@ -7,14 +7,14 @@
 //
 
 #import "TPLocationTracker.h"
+#import "TPSharedLocations.h"
 
 extern const double kDistanceFilter;
 
-static const double kHeadingFilter = 15.0;
+static const double kHeadingFilter = 10.0;
 
 @interface TPLocationTracker ()
 
-@property (nonatomic, strong) NSMutableArray *locations;
 @property (nonatomic, strong) CLLocationManager *locationManager;
 @property (nonatomic) double distance;
 @property (nonatomic) double direction;
@@ -33,7 +33,7 @@ static const double kHeadingFilter = 15.0;
         self.locationManager.distanceFilter = kDistanceFilter;
         self.locationManager.headingFilter = kHeadingFilter;
         self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-        self.locations = [NSMutableArray array];
+        self.locationManager.headingOrientation = CLDeviceOrientationLandscapeLeft;
     }
     return self;
 }
@@ -45,13 +45,29 @@ static const double kHeadingFilter = 15.0;
         [self.locationManager stopUpdatingHeading];
     }
     _trackingLocation = trackingLocation;
-    self.relativeDirection = 0.0;
+    self.relativeDirection = 0;
     if (trackingLocation == nil) return;
     if ([CLLocationManager locationServicesEnabled]) {
         [self.locationManager startUpdatingLocation];
+        if ([CLLocationManager headingAvailable]) {
+            [self.locationManager startUpdatingHeading];
+        }
     }
-    if ([CLLocationManager headingAvailable]) {
-        [self.locationManager startUpdatingHeading];
+}
+
+- (void)setDistance:(double)distance
+{
+    _distance = distance;
+    if ([self.delegate respondsToSelector:@selector(locationTracker:didUpdateDistance:)]) {
+        [self.delegate locationTracker:self didUpdateDistance:self.distance];
+    }
+}
+
+- (void)setDirection:(double)direction
+{
+    _direction = direction;
+    if ([self.delegate respondsToSelector:@selector(locationTracker:didUpdateDirection:)]) {
+        [self.delegate locationTracker:self didUpdateDirection:self.direction];
     }
 }
 
@@ -59,7 +75,7 @@ static const double kHeadingFilter = 15.0;
 {
     if ([CLLocationManager locationServicesEnabled]) {
         CLLocation *location = [self.locationManager location];
-        [self.locations addObject:location];
+        [[TPSharedLocations sharedLocations] addLocation:location];
         self.trackingLocation = location;
     }
 }
@@ -70,16 +86,16 @@ static const double kHeadingFilter = 15.0;
 {
     CLLocation *newLocation = [locations lastObject];
     self.distance = [newLocation distanceFromLocation:self.trackingLocation];
-    double dir = atan(abs((newLocation.coordinate.longitude - self.trackingLocation.coordinate.longitude) / (newLocation.coordinate.latitude - self.trackingLocation.coordinate.latitude))) * 180.0 / M_PI;
+    double dir = atan(abs((newLocation.coordinate.longitude - self.trackingLocation.coordinate.longitude) / (newLocation.coordinate.latitude - self.trackingLocation.coordinate.latitude)));
     if (newLocation.coordinate.latitude >= self.trackingLocation.coordinate.latitude) {
         if (newLocation.coordinate.longitude >= self.trackingLocation.coordinate.longitude) {
-            dir += 180.0;
+            dir += M_PI;
         } else {
-            dir = 180.0 - dir;
+            dir = M_PI - dir;
         }
     } else {
         if (newLocation.coordinate.longitude >= self.trackingLocation.coordinate.longitude) {
-            dir = 360.0 - dir;
+            dir = 2 * M_PI - dir;
         }
     }
     self.relativeDirection = dir;
@@ -87,7 +103,15 @@ static const double kHeadingFilter = 15.0;
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateHeading:(CLHeading *)newHeading
 {
-    self.direction = self.relativeDirection - newHeading.trueHeading;
+    if (newHeading.headingAccuracy < 0) return;
+    double theHeading = ((newHeading.trueHeading > 0) ? newHeading.trueHeading : newHeading.magneticHeading);
+    theHeading *=  M_PI / 180.0;
+    if (self.relativeDirection >= theHeading) {
+        self.direction = self.relativeDirection - theHeading;
+    } else {
+        self.direction = self.relativeDirection - theHeading + 2 * M_PI;
+    }
+    
 }
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
