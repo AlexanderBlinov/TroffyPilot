@@ -46,7 +46,11 @@ static const double kHeadingFilter = 10.0;
     }
     _trackingLocation = trackingLocation;
     self.relativeDirection = 0;
-    if (trackingLocation == nil) return;
+    if (trackingLocation == nil) {
+        self.direction = 0;
+        self.distance = 0;
+        return;
+    }
     if ([CLLocationManager locationServicesEnabled]) {
         [self.locationManager startUpdatingLocation];
         if ([CLLocationManager headingAvailable]) {

@@ -272,18 +272,23 @@ static double fromVal = 0;
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
+    __weak TPViewController *vc = self;
     if (buttonIndex == 1) {
         [self.locationsCollectionView performBatchUpdates:^{
-            [[TPSharedLocations sharedLocations] removeLocationAtIndex:self.indexPathToBeDeleted.row];
-            [self.locationsCollectionView deleteItemsAtIndexPaths:@[self.indexPathToBeDeleted]];
+            [[TPSharedLocations sharedLocations] removeLocationAtIndex:vc.indexPathToBeDeleted.row];
+            [vc.locationsCollectionView deleteItemsAtIndexPaths:@[vc.indexPathToBeDeleted]];
         } completion:^(BOOL finished) {
             if (finished) {
-                [self.locationsCollectionView reloadData];
-                if ([[TPSharedLocations sharedLocations] locationsCount] <= self.indexPathToBeDeleted.row) {
-                    NSIndexPath *indPath = [NSIndexPath indexPathForRow:[[TPSharedLocations sharedLocations] locationsCount] - 1 inSection:0];
-                    [self.locationsCollectionView selectItemAtIndexPath:indPath animated:YES scrollPosition:UICollectionViewScrollPositionCenteredHorizontally];
+                [vc.locationsCollectionView reloadData];
+                if ([[TPSharedLocations sharedLocations] locationsCount] > 0) {
+                    if ([[TPSharedLocations sharedLocations] locationsCount] <= vc.indexPathToBeDeleted.row) {
+                        NSIndexPath *indPath = [NSIndexPath indexPathForRow:[[TPSharedLocations sharedLocations] locationsCount] - 1 inSection:0];
+                        [vc.locationsCollectionView selectItemAtIndexPath:indPath animated:YES scrollPosition:UICollectionViewScrollPositionCenteredHorizontally];
+                    } else {
+                        [vc.locationsCollectionView selectItemAtIndexPath:vc.indexPathToBeDeleted animated:YES scrollPosition:UICollectionViewScrollPositionCenteredHorizontally];
+                    }
                 } else {
-                    [self.locationsCollectionView selectItemAtIndexPath:self.indexPathToBeDeleted animated:YES scrollPosition:UICollectionViewScrollPositionCenteredHorizontally];
+                    vc.locationTracker.trackingLocation = nil;
                 }
             }
         }];
