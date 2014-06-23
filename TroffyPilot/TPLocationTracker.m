@@ -19,6 +19,10 @@ static const double kHeadingFilter = 10.0;
 @property (nonatomic) double distance;
 @property (nonatomic) double direction;
 @property (nonatomic) double relativeDirection;
+@property (nonatomic, getter = isFaceDown) BOOL faceDown;
+
+- (void)deviceDidCahngeOrientation:(NSNotification *)notification;
+- (void)resetHeadingUpdates;
 
 @end
 
@@ -41,6 +45,7 @@ static const double kHeadingFilter = 10.0;
 - (void)setTrackingLocation:(CLLocation *)trackingLocation
 {
     if (self.trackingLocation) {
+        [[UIDevice currentDevice] endGeneratingDeviceOrientationNotifications];
         [self.locationManager stopUpdatingLocation];
         [self.locationManager stopUpdatingHeading];
     }
@@ -55,6 +60,8 @@ static const double kHeadingFilter = 10.0;
         [self.locationManager startUpdatingLocation];
         if ([CLLocationManager headingAvailable]) {
             [self.locationManager startUpdatingHeading];
+            [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
+            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deviceDidCahngeOrientation:) name:UIDeviceOrientationDidChangeNotification object:[UIDevice currentDevice]];
         }
     }
 }
@@ -75,6 +82,12 @@ static const double kHeadingFilter = 10.0;
     }
 }
 
+- (void)setFaceDown:(BOOL)faceDown
+{
+    _faceDown = faceDown;
+    [self resetHeadingUpdates];
+}
+
  - (void)addLocation
 {
     if ([CLLocationManager locationServicesEnabled]) {
@@ -84,12 +97,35 @@ static const double kHeadingFilter = 10.0;
     }
 }
 
+- (void)deviceDidCahngeOrientation:(NSNotification *)notification
+{
+    UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
+    if (orientation == 6 && !self.isFaceDown) {
+        [self setFaceDown:YES];
+    }
+    if (orientation == 5 && self.isFaceDown) {
+        [self setFaceDown:NO];
+        
+    }
+}
+
+- (void)resetHeadingUpdates
+{
+    [self.locationManager stopUpdatingHeading];
+    if ([CLLocationManager headingAvailable]) {
+        [self.locationManager startUpdatingHeading];
+    }
+}
+
 #pragma mark - Location manager delegate
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
     CLLocation *newLocation = [locations lastObject];
-    self.distance = [newLocation distanceFromLocation:self.trackingLocation];
+    double distance = [newLocation distanceFromLocation:self.trackingLocation];
+    if (distance >= kDistanceFilter) {
+        self.distance = distance;
+    }
     double dir = atan(abs((newLocation.coordinate.longitude - self.trackingLocation.coordinate.longitude) / (newLocation.coordinate.latitude - self.trackingLocation.coordinate.latitude)));
     if (newLocation.coordinate.latitude >= self.trackingLocation.coordinate.latitude) {
         if (newLocation.coordinate.longitude >= self.trackingLocation.coordinate.longitude) {
@@ -110,6 +146,7 @@ static const double kHeadingFilter = 10.0;
     if (newHeading.headingAccuracy < 0) return;
     double theHeading = ((newHeading.trueHeading > 0) ? newHeading.trueHeading : newHeading.magneticHeading);
     theHeading *=  M_PI / 180.0;
+    theHeading *= self.isFaceDown ? -1 : 1;
     if (self.relativeDirection >= theHeading) {
         self.direction = self.relativeDirection - theHeading;
     } else {

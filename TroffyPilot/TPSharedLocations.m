@@ -55,6 +55,11 @@ static TPSharedLocations *sharedInstance = nil;
     return [self.locations objectAtIndex:index];
 }
 
+- (CLLocation *)lastLocation
+{
+    return [self.locations lastObject];
+}
+
 - (void)loadLocations
 {
     self.locations = [NSKeyedUnarchiver unarchiveObjectWithFile:[self locationsArchivePath]];

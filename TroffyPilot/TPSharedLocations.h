@@ -14,6 +14,7 @@
 + (TPSharedLocations *)sharedLocations;
 
 - (CLLocation *)locationAtIndex:(NSUInteger)index;
+- (CLLocation *)lastLocation;
 - (void)addLocation:(CLLocation *)location;
 - (void)removeLocationAtIndex:(NSUInteger)index;
 - (NSUInteger)locationsCount;

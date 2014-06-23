@@ -21,7 +21,7 @@ static NSString * const kReverseOn = @"ReverseOn.png";
 static NSString * const kReverseOff = @"ReverseOff.png";
 static NSString * const kStart = @"Start.png";
 static NSString * const kStop = @"Stop.png";
-static NSString * const kDirection = @"direction.png";
+static NSString * const kDirection = @"Direction.png";
 static NSString * const kTrackerErrorTitle = @"Unable to determine location";
 static const double kStartDistanceValue = 0.0;
 static const double kStartSpeedValue = 0.0;
@@ -99,13 +99,14 @@ static const double kStartSpeedValue = 0.0;
     [self.locationsCollectionView setCollectionViewLayout:layout];
     self.locationsCollectionView.allowsSelection = YES;
     self.directionLayer = [CALayer layer];
-    self.directionLayer.position = CGPointMake(60.0f, 255.0f);
+    self.directionLayer.position = CGPointMake(63.0f, 252.0f);
     self.directionLayer.bounds = CGRectMake(0, 0, 44.0f, 44.0f);
     self.directionLayer.contents = (id)[[UIImage imageNamed:kDirection] CGImage];
     [self.view.layer addSublayer:self.directionLayer];
     if ([[TPSharedLocations sharedLocations] locationsCount] > 0) {
         NSIndexPath *indPath = [NSIndexPath indexPathForRow:[[TPSharedLocations sharedLocations] locationsCount] - 1 inSection:0];
-        [self.locationsCollectionView selectItemAtIndexPath:indPath animated:YES scrollPosition:UICollectionViewScrollPositionCenteredHorizontally];
+        [self.locationsCollectionView selectItemAtIndexPath:indPath animated:YES scrollPosition:UICollectionViewScrollPositionRight];
+        self.locationTracker.trackingLocation = [[TPSharedLocations sharedLocations] lastLocation];
     }
 }
 
@@ -197,7 +198,7 @@ static const double kStartSpeedValue = 0.0;
     [self.locationTracker addLocation];
     [self.locationsCollectionView reloadData];
     NSIndexPath *indPath = [NSIndexPath indexPathForRow:[[TPSharedLocations sharedLocations] locationsCount] - 1 inSection:0];
-    [self.locationsCollectionView selectItemAtIndexPath:indPath animated:YES scrollPosition:UICollectionViewScrollPositionCenteredHorizontally];
+    [self.locationsCollectionView selectItemAtIndexPath:indPath animated:YES scrollPosition:UICollectionViewScrollPositionRight];
      [[TPSharedLocations sharedLocations] saveLocations];
 }
 
@@ -285,7 +286,7 @@ static double fromVal = 0;
                         NSIndexPath *indPath = [NSIndexPath indexPathForRow:[[TPSharedLocations sharedLocations] locationsCount] - 1 inSection:0];
                         [vc.locationsCollectionView selectItemAtIndexPath:indPath animated:YES scrollPosition:UICollectionViewScrollPositionCenteredHorizontally];
                     } else {
-                        [vc.locationsCollectionView selectItemAtIndexPath:vc.indexPathToBeDeleted animated:YES scrollPosition:UICollectionViewScrollPositionCenteredHorizontally];
+                        [vc.locationsCollectionView selectItemAtIndexPath:vc.indexPathToBeDeleted animated:YES scrollPosition:UICollectionViewScrollPositionRight];
                     }
                 } else {
                     vc.locationTracker.trackingLocation = nil;
@@ -294,7 +295,7 @@ static double fromVal = 0;
         }];
         [[TPSharedLocations sharedLocations] saveLocations];
     } else {
-        [self.locationsCollectionView selectItemAtIndexPath:self.indexPathToBeDeleted animated:YES scrollPosition:UICollectionViewScrollPositionCenteredHorizontally];
+        [self.locationsCollectionView selectItemAtIndexPath:self.indexPathToBeDeleted animated:YES scrollPosition:UICollectionViewScrollPositionRight];
     }
 }
 

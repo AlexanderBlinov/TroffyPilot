@@ -10,6 +10,9 @@
 #import "TPDistanceTransformer.h"
 #import "TPSpeedTransformer.h"
 
+static NSString *kSpeedSuffix = @" km/h";
+static NSString *kDistanceSuffix = @" km";
+
 @implementation NSString (DistanceAndSpeed)
 
 + (NSString *)stringWithDistance:(double)distance
@@ -21,7 +24,7 @@
     [formatter setMinimumFractionDigits:3];
     [formatter setMaximumFractionDigits:3];
     NSString *result = [formatter stringFromNumber:transformedDistance];
-    return result;
+    return [result stringByAppendingString:kDistanceSuffix];
 }
 
 + (NSString *)stringWithSpeed:(double)speed
@@ -31,7 +34,7 @@
     NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
     [formatter setRoundingMode:NSNumberFormatterRoundCeiling];
     NSString *result = [formatter stringFromNumber:transformedSpeed];
-    return result;
+    return [result stringByAppendingString:kSpeedSuffix];
 }
 
 @end
