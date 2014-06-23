@@ -15,6 +15,6 @@
 @property (nonatomic, weak) id <TPLocationTrackerDelegate> delegate;
 @property (nonatomic, strong) CLLocation *trackingLocation;
 
-- (void)addLocation;
+- (CLLocation *)addLocation;
 
 @end

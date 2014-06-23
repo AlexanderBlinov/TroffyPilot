@@ -1,14 +1,14 @@
 //
-//  TPDistanceTransformer.m
+//  TPSpeedTransformer.m
 //  TroffyPilot
 //
 //  Created by student on 6/5/14.
 //  Copyright (c) 2014 student. All rights reserved.
 //
 
-#import "TPDistanceTransformer.h"
+#import "TPSpeedValueTransformer.h"
 
-@implementation TPDistanceTransformer
+@implementation TPSpeedValueTransformer
 
 + (Class)transformedValueClass
 {
@@ -23,15 +23,15 @@
 - (id)transformedValue:(id)value
 {
     if (value == nil) return nil;
-    double distanceInput;
-    double distanceOutput;
+    double speedInput;
+    double speedOutput;
     if ([value respondsToSelector:@selector(doubleValue)]) {
-        distanceInput = [value doubleValue];
+        speedInput = [value doubleValue];
     } else {
         [NSException raise:NSInternalInconsistencyException format:@"Value (%@) does not respond to - doubleValue", [value class]];
     }
-    distanceOutput = distanceInput / 1000.0;
-    return [NSNumber numberWithDouble:distanceOutput];
+    speedOutput = speedInput * 3.6;
+    return [NSNumber numberWithDouble:speedOutput];
 }
 
 @end

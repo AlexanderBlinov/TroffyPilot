@@ -1,0 +1,15 @@
+/* 
+  Localizable.strings
+  TroffyPilot
+
+  Created by student on 6/23/14.
+  Copyright (c) 2014 student. All rights reserved.
+*/
+"Yes" = "Yes";
+"DeleteTitle" = "Delete location";
+"DeleteMessage" = "Are you sure you want to delete this location?";
+"Cancel" = "Cancel";
+"OK" = "OK";
+"km/h" = " km/h";
+"km" = " km";
+"TrackerError" = "Unable to determine location";

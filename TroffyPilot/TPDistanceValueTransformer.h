@@ -8,6 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-@interface TPDistanceTransformer : NSValueTransformer
+@interface TPDistanceValueTransformer : NSValueTransformer
 
 @end

@@ -55,6 +55,11 @@ static TPSharedLocations *sharedInstance = nil;
     return [self.locations objectAtIndex:index];
 }
 
+- (NSUInteger)indexOfLocation:(CLLocation *)location
+{
+    return [self.locations indexOfObject:location];
+}
+
 - (CLLocation *)lastLocation
 {
     return [self.locations lastObject];

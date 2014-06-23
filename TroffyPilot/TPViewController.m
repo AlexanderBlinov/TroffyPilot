@@ -10,21 +10,24 @@
 #import "TPLocationsCollectionViewDataSource.h"
 #import "TPDistanceTracker.h"
 #import "TPSpeedTracker.h"
-#import "TPDistanceTransformer.h"
-#import "TPSpeedTransformer.h"
+#import "TPDistanceValueTransformer.h"
+#import "TPSpeedValueTransformer.h"
 #import "TPLocationTracker.h"
 #import "TPSharedLocations.h"
 #import "TPLocationCell.h"
 #import "NSString+DistanceAndSpeed.h"
 
+static NSString * const kLocationCellIdentifier = @"LocationCell";
 static NSString * const kReverseOn = @"ReverseOn.png";
 static NSString * const kReverseOff = @"ReverseOff.png";
 static NSString * const kStart = @"Start.png";
 static NSString * const kStop = @"Stop.png";
 static NSString * const kDirection = @"Direction.png";
-static NSString * const kTrackerErrorTitle = @"Unable to determine location";
 static const double kStartDistanceValue = 0.0;
 static const double kStartSpeedValue = 0.0;
+static const NSInteger kDeleteAlert = 1;
+static const NSInteger kErrorAlert = -1;
+static double previousDirection = 0;
 
 @interface TPViewController ()
 
@@ -58,6 +61,8 @@ static const double kStartSpeedValue = 0.0;
 - (void)changeTrackerState:(TPDistanceTracker *)tracker withButton:(UIButton *)button;
 - (void)changeTrackerReverse:(TPDistanceTracker *)tracker withButton:(UIButton *)button;
 - (void)resetTracker:(TPDistanceTracker *)tracker;
+- (void)rotateDirectionLayerToDirection:(double)direction;
+- (void)deleteLocation;
 
 @end
 
@@ -92,7 +97,7 @@ static const double kStartSpeedValue = 0.0;
     self.trackingDistance.text = [NSString stringWithDistance:kStartDistanceValue];
     self.locationsDataSource = [[TPLocationsCollectionViewDataSource alloc] init];
     self.locationsCollectionView.dataSource = self.locationsDataSource;
-    [self.locationsCollectionView registerClass:[TPLocationCell class] forCellWithReuseIdentifier:@"LocationCell"];
+    [self.locationsCollectionView registerClass:[TPLocationCell class] forCellWithReuseIdentifier:kLocationCellIdentifier];
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
     [layout setItemSize:CGSizeMake(50, 50)];
     [layout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
@@ -142,6 +147,49 @@ static const double kStartSpeedValue = 0.0;
     [tracker reset];
 }
 
+- (void)rotateDirectionLayerToDirection:(double)direction
+{
+    if (abs(direction - previousDirection) > abs(previousDirection + 2 * M_PI - direction)) {
+        previousDirection = previousDirection + 2 * M_PI;
+    }
+    if (abs(direction - previousDirection) > abs(previousDirection - 2 * M_PI - direction)) {
+        previousDirection = previousDirection - 2 * M_PI;
+    }
+    CABasicAnimation *rotateAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
+    rotateAnimation.fillMode = kCAFillModeForwards;
+    rotateAnimation.removedOnCompletion = NO;
+    rotateAnimation.fromValue = [NSNumber numberWithDouble:previousDirection];
+    rotateAnimation.toValue = [NSNumber numberWithDouble:direction];
+    rotateAnimation.duration = 0.1;
+    [self.directionLayer addAnimation:rotateAnimation forKey:@"animateDirection"];
+    previousDirection = direction;
+}
+
+- (void)deleteLocation
+{
+    __weak TPViewController *viewController = self;
+    [self.locationsCollectionView performBatchUpdates:^{
+        [[TPSharedLocations sharedLocations] removeLocationAtIndex:viewController.indexPathToBeDeleted.row];
+        [viewController.locationsCollectionView deleteItemsAtIndexPaths:@[viewController.indexPathToBeDeleted]];
+    } completion:^(BOOL finished) {
+        if (finished) {
+            [viewController.locationsCollectionView reloadData];
+            NSUInteger locationsCount = [[TPSharedLocations sharedLocations] locationsCount];
+            if (locationsCount > 0) {
+                if (locationsCount <= viewController.indexPathToBeDeleted.row) {
+                    NSIndexPath *indPath = [NSIndexPath indexPathForRow:locationsCount - 1 inSection:0];
+                    [viewController.locationsCollectionView selectItemAtIndexPath:indPath animated:YES scrollPosition:UICollectionViewScrollPositionCenteredHorizontally];
+                } else {
+                    [viewController.locationsCollectionView selectItemAtIndexPath:viewController.indexPathToBeDeleted animated:YES scrollPosition:UICollectionViewScrollPositionRight];
+                }
+            } else {
+                viewController.locationTracker.trackingLocation = nil;
+            }
+        }
+    }];
+    [[TPSharedLocations sharedLocations] saveLocations];
+}
+
 #pragma mark - Target-Action
 
 - (IBAction)didLongPressCellToDelete:(id)sender
@@ -152,10 +200,12 @@ static const double kStartSpeedValue = 0.0;
     if (indexPath && gesture.state == UIGestureRecognizerStateBegan) {
         self.indexPathToBeDeleted = indexPath;
         UIAlertView *deleteAlert = [[UIAlertView alloc]
-                                    initWithTitle:@"Delete location"
-                                    message:@"Are you sure you want to delete this location?"
-                                    delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Yes", nil];
+                                    initWithTitle:NSLocalizedString(@"DeleteTitle", nil)
+                                    message:NSLocalizedString(@"DeleteMessage", nil)
+                                    delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) otherButtonTitles:NSLocalizedString(@"Yes", nil), nil];
+        deleteAlert.tag = kDeleteAlert;
         [deleteAlert show];
+        
         
     }
 }
@@ -195,11 +245,14 @@ static const double kStartSpeedValue = 0.0;
 
 - (IBAction)trackLocation:(id)sender
 {
-    [self.locationTracker addLocation];
-    [self.locationsCollectionView reloadData];
-    NSIndexPath *indPath = [NSIndexPath indexPathForRow:[[TPSharedLocations sharedLocations] locationsCount] - 1 inSection:0];
-    [self.locationsCollectionView selectItemAtIndexPath:indPath animated:YES scrollPosition:UICollectionViewScrollPositionRight];
-     [[TPSharedLocations sharedLocations] saveLocations];
+    CLLocation *location = [self.locationTracker addLocation];
+    if (location) {
+        [self.locationsCollectionView reloadData];
+        NSUInteger indexOfLocation = [[TPSharedLocations sharedLocations] indexOfLocation:location];
+        NSIndexPath *indPath = [NSIndexPath indexPathForRow:indexOfLocation inSection:0];
+        [self.locationsCollectionView selectItemAtIndexPath:indPath animated:YES scrollPosition:UICollectionViewScrollPositionRight];
+        [[TPSharedLocations sharedLocations] saveLocations];
+    }
 }
 
 #pragma mark - Collection view delegate
@@ -235,8 +288,9 @@ static const double kStartSpeedValue = 0.0;
 
 - (void)speedTracker:(TPSpeedTracker *)tracker error:(NSError *)error
 {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:kTrackerErrorTitle message:[error localizedDescription] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-    [alert show];
+    UIAlertView *errorAlert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"TrackerError", nil) message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil];
+    errorAlert.tag = kErrorAlert;
+    [errorAlert show];
 }
 
 #pragma mark - Location tracker delegate
@@ -249,53 +303,30 @@ static const double kStartSpeedValue = 0.0;
     }
 }
 
-static double fromVal = 0;
-
 - (void)locationTracker:(TPLocationTracker *)tracker didUpdateDirection:(double)direction
 {
-    if (abs(direction - fromVal) > abs(fromVal + 2 * M_PI - direction)) {
-        fromVal = fromVal + 2 * M_PI;
-    }
-    if (abs(direction - fromVal) > abs(fromVal - 2 * M_PI - direction)) {
-        fromVal = fromVal - 2 * M_PI;
-    }
-    CABasicAnimation *rotateAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
-    rotateAnimation.fillMode = kCAFillModeForwards;
-    rotateAnimation.removedOnCompletion = NO;
-    rotateAnimation.fromValue = [NSNumber numberWithDouble:fromVal];
-    rotateAnimation.toValue = [NSNumber numberWithDouble:direction];
-    rotateAnimation.duration = 0.1;
-    [self.directionLayer addAnimation:rotateAnimation forKey:@"animateDirection"];
-    fromVal = direction;
+    [self rotateDirectionLayerToDirection:direction];
 }
 
 #pragma mark - Alert view delegate
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    __weak TPViewController *vc = self;
-    if (buttonIndex == 1) {
-        [self.locationsCollectionView performBatchUpdates:^{
-            [[TPSharedLocations sharedLocations] removeLocationAtIndex:vc.indexPathToBeDeleted.row];
-            [vc.locationsCollectionView deleteItemsAtIndexPaths:@[vc.indexPathToBeDeleted]];
-        } completion:^(BOOL finished) {
-            if (finished) {
-                [vc.locationsCollectionView reloadData];
-                if ([[TPSharedLocations sharedLocations] locationsCount] > 0) {
-                    if ([[TPSharedLocations sharedLocations] locationsCount] <= vc.indexPathToBeDeleted.row) {
-                        NSIndexPath *indPath = [NSIndexPath indexPathForRow:[[TPSharedLocations sharedLocations] locationsCount] - 1 inSection:0];
-                        [vc.locationsCollectionView selectItemAtIndexPath:indPath animated:YES scrollPosition:UICollectionViewScrollPositionCenteredHorizontally];
-                    } else {
-                        [vc.locationsCollectionView selectItemAtIndexPath:vc.indexPathToBeDeleted animated:YES scrollPosition:UICollectionViewScrollPositionRight];
-                    }
-                } else {
-                    vc.locationTracker.trackingLocation = nil;
-                }
+    switch (alertView.tag) {
+        case kDeleteAlert:
+        {
+            const NSInteger kOkButtonIndex = 1;
+            if (buttonIndex == kOkButtonIndex) {
+                [self deleteLocation];
+            } else {
+                [self.locationsCollectionView selectItemAtIndexPath:self.indexPathToBeDeleted animated:YES scrollPosition:UICollectionViewScrollPositionRight];
             }
-        }];
-        [[TPSharedLocations sharedLocations] saveLocations];
-    } else {
-        [self.locationsCollectionView selectItemAtIndexPath:self.indexPathToBeDeleted animated:YES scrollPosition:UICollectionViewScrollPositionRight];
+        }
+            break;
+        case kErrorAlert:
+            break;
+        default:
+            break;
     }
 }
 

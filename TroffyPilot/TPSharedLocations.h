@@ -17,6 +17,7 @@
 - (CLLocation *)lastLocation;
 - (void)addLocation:(CLLocation *)location;
 - (void)removeLocationAtIndex:(NSUInteger)index;
+- (NSUInteger)indexOfLocation:(CLLocation *)location;
 - (NSUInteger)locationsCount;
 - (void)saveLocations;
 - (void)loadLocations;

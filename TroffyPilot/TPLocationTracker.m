@@ -10,7 +10,6 @@
 #import "TPSharedLocations.h"
 
 extern const double kDistanceFilter;
-
 static const double kHeadingFilter = 10.0;
 
 @interface TPLocationTracker ()
@@ -88,13 +87,15 @@ static const double kHeadingFilter = 10.0;
     [self resetHeadingUpdates];
 }
 
- - (void)addLocation
+- (CLLocation *)addLocation
 {
     if ([CLLocationManager locationServicesEnabled]) {
         CLLocation *location = [self.locationManager location];
         [[TPSharedLocations sharedLocations] addLocation:location];
         self.trackingLocation = location;
+        return self.trackingLocation;
     }
+    return nil;
 }
 
 - (void)deviceDidCahngeOrientation:(NSNotification *)notification

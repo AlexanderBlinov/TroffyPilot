@@ -8,6 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-@interface TPSpeedTransformer : NSValueTransformer
+@interface TPSpeedValueTransformer : NSValueTransformer
 
 @end

@@ -10,6 +10,8 @@
 #import "TPLocationCell.h"
 #import "TPSharedLocations.h"
 
+static NSString * const kLocationCellIdentifier = @"LocationCell";
+
 @implementation TPLocationsCollectionViewDataSource
 
 #pragma mark - Collection view data source
@@ -26,7 +28,7 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    TPLocationCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"LocationCell" forIndexPath:indexPath];
+    TPLocationCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kLocationCellIdentifier forIndexPath:indexPath];
     cell.numberLabel.text = [NSString stringWithFormat:@"%ld", (long)[indexPath row]];
     cell.selectedBackgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 50.0f, 50.0f)];
     cell.selectedBackgroundView.backgroundColor = [UIColor colorWithRed:40.0f / 255.0f green:171.0f / 255.0f blue:26.0f / 255.0f alpha:1.0f];
