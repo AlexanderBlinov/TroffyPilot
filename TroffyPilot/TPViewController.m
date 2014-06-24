@@ -105,7 +105,7 @@ static double previousDirection = 0;
     self.locationsCollectionView.allowsSelection = YES;
     self.directionLayer = [CALayer layer];
     self.directionLayer.position = CGPointMake(63.0f, 252.0f);
-    self.directionLayer.bounds = CGRectMake(0, 0, 44.0f, 44.0f);
+    self.directionLayer.bounds = CGRectMake(0, 0, 50.0f, 50.0f);
     self.directionLayer.contents = (id)[[UIImage imageNamed:kDirection] CGImage];
     [self.view.layer addSublayer:self.directionLayer];
     if ([[TPSharedLocations sharedLocations] locationsCount] > 0) {
