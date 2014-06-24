@@ -48,6 +48,7 @@ static double previousDirection = 0;
 @property (nonatomic, weak) IBOutlet UIButton *secondaryReverseButton;
 @property (nonatomic, weak) IBOutlet UICollectionView *locationsCollectionView;
 @property (nonatomic, weak) IBOutlet UILabel *trackingDistance;
+@property (nonatomic, weak) IBOutlet UIImageView *directionImage;
 
 - (IBAction)changeStatePrimary:(id)sender;
 - (IBAction)changeStateSecondary:(id)sender;
@@ -104,10 +105,10 @@ static double previousDirection = 0;
     [self.locationsCollectionView setCollectionViewLayout:layout];
     self.locationsCollectionView.allowsSelection = YES;
     self.directionLayer = [CALayer layer];
-    self.directionLayer.position = CGPointMake(63.0f, 252.0f);
+    self.directionLayer.position = CGPointMake(25.0f, 25.0f);
     self.directionLayer.bounds = CGRectMake(0, 0, 50.0f, 50.0f);
     self.directionLayer.contents = (id)[[UIImage imageNamed:kDirection] CGImage];
-    [self.view.layer addSublayer:self.directionLayer];
+    [self.directionImage.layer addSublayer:self.directionLayer];
     if ([[TPSharedLocations sharedLocations] locationsCount] > 0) {
         NSIndexPath *indPath = [NSIndexPath indexPathForRow:[[TPSharedLocations sharedLocations] locationsCount] - 1 inSection:0];
         [self.locationsCollectionView selectItemAtIndexPath:indPath animated:YES scrollPosition:UICollectionViewScrollPositionRight];
@@ -181,6 +182,7 @@ static double previousDirection = 0;
                     [viewController.locationsCollectionView selectItemAtIndexPath:indPath animated:YES scrollPosition:UICollectionViewScrollPositionCenteredHorizontally];
                 } else {
                     [viewController.locationsCollectionView selectItemAtIndexPath:viewController.indexPathToBeDeleted animated:YES scrollPosition:UICollectionViewScrollPositionRight];
+                viewController.locationTracker.trackingLocation = [[TPSharedLocations sharedLocations] locationAtIndex:[viewController.indexPathToBeDeleted  row]];
                 }
             } else {
                 viewController.locationTracker.trackingLocation = nil;
@@ -320,6 +322,7 @@ static double previousDirection = 0;
                 [self deleteLocation];
             } else {
                 [self.locationsCollectionView selectItemAtIndexPath:self.indexPathToBeDeleted animated:YES scrollPosition:UICollectionViewScrollPositionRight];
+                self.locationTracker.trackingLocation = [[TPSharedLocations sharedLocations] locationAtIndex:[self.indexPathToBeDeleted row]];
             }
         }
             break;
