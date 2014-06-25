@@ -8,7 +8,7 @@
 
 #import "TPLocationsCollectionViewDataSource.h"
 #import "TPLocationCell.h"
-#import "TPSharedLocations.h"
+#import "TPLocationsStorage.h"
 
 static NSString * const kLocationCellIdentifier = @"LocationCell";
 
@@ -23,7 +23,7 @@ static NSString * const kLocationCellIdentifier = @"LocationCell";
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return [[TPSharedLocations sharedLocations] locationsCount];
+    return [self.locationsStorage locationsCount];
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath

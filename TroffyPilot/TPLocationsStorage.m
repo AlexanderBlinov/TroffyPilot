@@ -6,9 +6,9 @@
 //  Copyright (c) 2014 student. All rights reserved.
 //
 
-#import "TPSharedLocations.h"
+#import "TPLocationsStorage.h"
 
-@interface TPSharedLocations ()
+@interface TPLocationsStorage ()
 
 @property (strong) NSMutableArray *locations;
 
@@ -16,23 +16,15 @@
 
 @end
 
-@implementation TPSharedLocations
+@implementation TPLocationsStorage
 
-static TPSharedLocations *sharedInstance = nil;
-
-+ (TPSharedLocations *)sharedLocations
+- (id)init
 {
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        sharedInstance = [[super allocWithZone:NULL] init];
-        [sharedInstance loadLocations];
-    });
-    return sharedInstance;
-}
-
-+ (id)allocWithZone:(struct _NSZone *)zone
-{
-    return [[self class] sharedLocations];
+    self = [super init];
+    if (self) {
+        [self loadLocations];
+    }
+    return self;
 }
 
 - (void)addLocation:(CLLocation *)location

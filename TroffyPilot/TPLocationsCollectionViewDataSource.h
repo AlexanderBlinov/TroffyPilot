@@ -8,6 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
+@class TPLocationsStorage;
+
 @interface TPLocationsCollectionViewDataSource : NSObject <UICollectionViewDataSource>
+
+@property (nonatomic, strong) TPLocationsStorage *locationsStorage;
 
 @end

@@ -9,9 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
 
-@interface TPSharedLocations : NSObject
-
-+ (TPSharedLocations *)sharedLocations;
+@interface TPLocationsStorage : NSObject
 
 - (CLLocation *)locationAtIndex:(NSUInteger)index;
 - (CLLocation *)lastLocation;

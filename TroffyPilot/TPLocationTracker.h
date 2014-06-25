@@ -10,10 +10,13 @@
 #import <CoreLocation/CoreLocation.h>
 #import "TPLocationTrackerDelegate.h"
 
+@class TPLocationsStorage;
+
 @interface TPLocationTracker : NSObject <CLLocationManagerDelegate>
 
 @property (nonatomic, weak) id <TPLocationTrackerDelegate> delegate;
 @property (nonatomic, strong) CLLocation *trackingLocation;
+@property (nonatomic, strong) TPLocationsStorage *loactionsStorage;
 
 - (CLLocation *)addLocation;
 

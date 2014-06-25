@@ -7,7 +7,7 @@
 //
 
 #import "TPLocationTracker.h"
-#import "TPSharedLocations.h"
+#import "TPLocationsStorage.h"
 
 extern const double kDistanceFilter;
 static const double kHeadingFilter = 6.0;
@@ -92,7 +92,6 @@ static const double kHeadingFilter = 6.0;
 - (void)setFaceDown:(BOOL)faceDown
 {
     _faceDown = faceDown;
-    NSLog(@"%d", faceDown);
     [self resetHeadingUpdates];
 }
 
@@ -100,7 +99,7 @@ static const double kHeadingFilter = 6.0;
 {
     if ([CLLocationManager locationServicesEnabled]) {
         CLLocation *location = [self.locationManager location];
-        [[TPSharedLocations sharedLocations] addLocation:location];
+        [self.loactionsStorage addLocation:location];
         return location;
     }
     return nil;
@@ -131,8 +130,6 @@ static const double kHeadingFilter = 6.0;
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
     CLLocation *newLocation = [locations lastObject];
-    NSLog(@"%@", newLocation);
-    NSLog(@"%@", self.trackingLocation);
     double distance = [newLocation distanceFromLocation:self.trackingLocation];
     if (distance >= kDistanceFilter) {
         self.distance = distance;
@@ -154,7 +151,6 @@ static const double kHeadingFilter = 6.0;
             }
         }
     }
-    NSLog(@"%f", dir);
     self.relativeDirection = dir;
 }
 
@@ -162,7 +158,6 @@ static const double kHeadingFilter = 6.0;
 {
     if (newHeading.headingAccuracy < 0) return;
     double theHeading = ((newHeading.trueHeading > 0) ? newHeading.trueHeading : newHeading.magneticHeading);
-    NSLog(@"%f", theHeading);
     theHeading *=  M_PI / 180.0;
     if (self.isFaceDown) {
         if (theHeading < M_PI) {
@@ -171,7 +166,6 @@ static const double kHeadingFilter = 6.0;
             theHeading -= M_PI;
         }
     }
-    NSLog(@"%f", theHeading * 180.0 / M_PI);
     if (self.relativeDirection < theHeading) {
         theHeading -= 2 * M_PI;
         

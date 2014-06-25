@@ -13,11 +13,12 @@
 #import "TPDistanceValueTransformer.h"
 #import "TPSpeedValueTransformer.h"
 #import "TPLocationTracker.h"
-#import "TPSharedLocations.h"
+#import "TPLocationsStorage.h"
 #import "TPLocationCell.h"
 #import "NSString+DistanceAndSpeed.h"
 
 static NSString * const kLocationCellIdentifier = @"LocationCell";
+static NSString * const kAnimateDirection = @"animateDirection";
 static NSString * const kReverseOn = @"ReverseOn.png";
 static NSString * const kReverseOff = @"ReverseOff.png";
 static NSString * const kStart = @"Start.png";
@@ -31,6 +32,7 @@ static double previousDirection = 0;
 
 @interface TPViewController ()
 
+@property (nonatomic, strong) TPLocationsStorage *locationsStorage;
 @property (nonatomic, strong) TPDistanceTracker *primaryTracker;
 @property (nonatomic, strong) TPDistanceTracker *secondaryTracker;
 @property (nonatomic, strong) TPSpeedTracker *speedTracker;
@@ -74,6 +76,7 @@ static double previousDirection = 0;
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
+        self.locationsStorage = [[TPLocationsStorage alloc] init];
         self.primaryTracker = [[TPDistanceTracker alloc] init];
         self.primaryTracker.isReverse = NO;
         self.primaryTracker.delegate = self;
@@ -84,6 +87,7 @@ static double previousDirection = 0;
         self.speedTracker.delegate = self;
         [self.speedTracker startTracking];
         self.locationTracker = [[TPLocationTracker alloc] init];
+        self.locationTracker.loactionsStorage = self.locationsStorage;
         self.locationTracker.delegate = self;
     }
     return self;
@@ -98,6 +102,7 @@ static double previousDirection = 0;
     self.speedLabel.text = [NSString stringWithSpeed:kStartSpeedValue];
     self.trackingDistance.text = [NSString stringWithDistance:kStartDistanceValue];
     self.locationsDataSource = [[TPLocationsCollectionViewDataSource alloc] init];
+    self.locationsDataSource.locationsStorage = self.locationsStorage;
     self.locationsCollectionView.dataSource = self.locationsDataSource;
     [self.locationsCollectionView registerClass:[TPLocationCell class] forCellWithReuseIdentifier:kLocationCellIdentifier];
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
@@ -110,8 +115,8 @@ static double previousDirection = 0;
     self.directionLayer.bounds = CGRectMake(0, 0, 50.0f, 50.0f);
     self.directionLayer.contents = (id)[[UIImage imageNamed:kDirection] CGImage];
     [self.directionImage.layer addSublayer:self.directionLayer];
-    if ([[TPSharedLocations sharedLocations] locationsCount] > 0) {
-        NSIndexPath *indPath = [NSIndexPath indexPathForRow:[[TPSharedLocations sharedLocations] locationsCount] - 1 inSection:0];
+    if ([self.locationsStorage locationsCount] > 0) {
+        NSIndexPath *indPath = [NSIndexPath indexPathForRow:[self.locationsStorage locationsCount] - 1 inSection:0];
         [self selectLocationAtIndexPath:indPath];
     }
 }
@@ -162,7 +167,7 @@ static double previousDirection = 0;
     rotateAnimation.fromValue = [NSNumber numberWithDouble:previousDirection];
     rotateAnimation.toValue = [NSNumber numberWithDouble:direction];
     rotateAnimation.duration = 0.1;
-    [self.directionLayer addAnimation:rotateAnimation forKey:@"animateDirection"];
+    [self.directionLayer addAnimation:rotateAnimation forKey:kAnimateDirection];
     previousDirection = direction;
 }
 
@@ -170,12 +175,12 @@ static double previousDirection = 0;
 {
     __weak TPViewController *viewController = self;
     [self.locationsCollectionView performBatchUpdates:^{
-        [[TPSharedLocations sharedLocations] removeLocationAtIndex:indexPath.row];
+        [self.locationsStorage removeLocationAtIndex:indexPath.row];
         [viewController.locationsCollectionView deleteItemsAtIndexPaths:@[indexPath]];
     } completion:^(BOOL finished) {
         if (finished) {
             [viewController.locationsCollectionView reloadData];
-            NSUInteger locationsCount = [[TPSharedLocations sharedLocations] locationsCount];
+            NSUInteger locationsCount = [self.locationsStorage locationsCount];
             if (locationsCount > 0) {
                 if (locationsCount <= indexPath.row) {
                     NSIndexPath *lastIndexPath = [NSIndexPath indexPathForRow:locationsCount - 1 inSection:0];
@@ -188,13 +193,13 @@ static double previousDirection = 0;
             }
         }
     }];
-    [[TPSharedLocations sharedLocations] saveLocations];
+    [self.locationsStorage saveLocations];
 }
 
 - (void)selectLocationAtIndexPath:(NSIndexPath *)indexPath
 {
     [self.locationsCollectionView selectItemAtIndexPath:indexPath animated:YES scrollPosition:UICollectionViewScrollPositionRight];
-    self.locationTracker.trackingLocation = [[TPSharedLocations sharedLocations] locationAtIndex:indexPath.row];
+    self.locationTracker.trackingLocation = [self.locationsStorage locationAtIndex:indexPath.row];
 }
 
 #pragma mark - Target-Action
@@ -255,10 +260,10 @@ static double previousDirection = 0;
     CLLocation *location = [self.locationTracker addLocation];
     if (location) {
         [self.locationsCollectionView reloadData];
-        NSUInteger indexOfLocation = [[TPSharedLocations sharedLocations] indexOfLocation:location];
+        NSUInteger indexOfLocation = [self.locationsStorage indexOfLocation:location];
         NSIndexPath *indPath = [NSIndexPath indexPathForRow:indexOfLocation inSection:0];
         [self selectLocationAtIndexPath:indPath];
-        [[TPSharedLocations sharedLocations] saveLocations];
+        [self.locationsStorage saveLocations];
     }
 }
 
@@ -266,7 +271,7 @@ static double previousDirection = 0;
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    self.locationTracker.trackingLocation = [[TPSharedLocations sharedLocations] locationAtIndex:[indexPath row]];
+    self.locationTracker.trackingLocation = [self.locationsStorage locationAtIndex:[indexPath row]];
 }
 
 #pragma mark - Distance tracker delegate

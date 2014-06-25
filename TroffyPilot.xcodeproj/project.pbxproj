@@ -23,7 +23,7 @@
 		3FA80F6019547DF9002B483D /* Direction.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FA80F5F19547DF9002B483D /* Direction.png */; };
 		3FA80F62195483DF002B483D /* Track.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FA80F61195483DF002B483D /* Track.png */; };
 		3FAF87C9194B27740096A507 /* TPLocationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FAF87C8194B27740096A507 /* TPLocationCell.m */; };
-		3FB236B8194EDCFB00FA9622 /* TPSharedLocations.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FB236B7194EDCFB00FA9622 /* TPSharedLocations.m */; };
+		3FB236B8194EDCFB00FA9622 /* TPLocationsStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FB236B7194EDCFB00FA9622 /* TPLocationsStorage.m */; };
 		3FB7F9D5194F2A6800170F48 /* TPLocationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3FB7F9D4194F2A6800170F48 /* TPLocationCell.xib */; };
 		3FBD268D193E25200056D4F1 /* TPViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FBD268B193E25200056D4F1 /* TPViewController.m */; };
 		3FBD268E193E25200056D4F1 /* TPViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3FBD268C193E25200056D4F1 /* TPViewController.xib */; };
@@ -85,8 +85,8 @@
 		3FA80F61195483DF002B483D /* Track.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Track.png; sourceTree = "<group>"; };
 		3FAF87C7194B27740096A507 /* TPLocationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPLocationCell.h; sourceTree = "<group>"; };
 		3FAF87C8194B27740096A507 /* TPLocationCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPLocationCell.m; sourceTree = "<group>"; };
-		3FB236B6194EDCFB00FA9622 /* TPSharedLocations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPSharedLocations.h; sourceTree = "<group>"; };
-		3FB236B7194EDCFB00FA9622 /* TPSharedLocations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPSharedLocations.m; sourceTree = "<group>"; };
+		3FB236B6194EDCFB00FA9622 /* TPLocationsStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPLocationsStorage.h; sourceTree = "<group>"; };
+		3FB236B7194EDCFB00FA9622 /* TPLocationsStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPLocationsStorage.m; sourceTree = "<group>"; };
 		3FB7F9D4194F2A6800170F48 /* TPLocationCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TPLocationCell.xib; sourceTree = "<group>"; };
 		3FBD268A193E25200056D4F1 /* TPViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPViewController.h; sourceTree = "<group>"; };
 		3FBD268B193E25200056D4F1 /* TPViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPViewController.m; sourceTree = "<group>"; };
@@ -214,8 +214,8 @@
 		3F128DEF19588A070033C586 /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				3FB236B6194EDCFB00FA9622 /* TPSharedLocations.h */,
-				3FB236B7194EDCFB00FA9622 /* TPSharedLocations.m */,
+				3FB236B6194EDCFB00FA9622 /* TPLocationsStorage.h */,
+				3FB236B7194EDCFB00FA9622 /* TPLocationsStorage.m */,
 			);
 			name = Data;
 			sourceTree = "<group>";
@@ -456,7 +456,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3FB236B8194EDCFB00FA9622 /* TPSharedLocations.m in Sources */,
+				3FB236B8194EDCFB00FA9622 /* TPLocationsStorage.m in Sources */,
 				3FAF87C9194B27740096A507 /* TPLocationCell.m in Sources */,
 				3F7C690B1948AF8F00B60796 /* NSString+DistanceAndSpeed.m in Sources */,
 				3FBD268D193E25200056D4F1 /* TPViewController.m in Sources */,
