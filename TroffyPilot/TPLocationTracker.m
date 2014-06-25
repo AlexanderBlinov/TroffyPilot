@@ -10,7 +10,7 @@
 #import "TPSharedLocations.h"
 
 extern const double kDistanceFilter;
-static const double kHeadingFilter = 10.0;
+static const double kHeadingFilter = 6.0;
 
 @interface TPLocationTracker ()
 
@@ -81,9 +81,18 @@ static const double kHeadingFilter = 10.0;
     }
 }
 
+- (void)setRelativeDirection:(double)relativeDirection
+{
+    _relativeDirection = relativeDirection;
+    if (![CLLocationManager headingAvailable]) {
+        self.direction = relativeDirection;
+    }
+}
+
 - (void)setFaceDown:(BOOL)faceDown
 {
     _faceDown = faceDown;
+    NSLog(@"%d", faceDown);
     [self resetHeadingUpdates];
 }
 
@@ -92,8 +101,7 @@ static const double kHeadingFilter = 10.0;
     if ([CLLocationManager locationServicesEnabled]) {
         CLLocation *location = [self.locationManager location];
         [[TPSharedLocations sharedLocations] addLocation:location];
-        self.trackingLocation = location;
-        return self.trackingLocation;
+        return location;
     }
     return nil;
 }
@@ -123,22 +131,30 @@ static const double kHeadingFilter = 10.0;
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
     CLLocation *newLocation = [locations lastObject];
+    NSLog(@"%@", newLocation);
+    NSLog(@"%@", self.trackingLocation);
     double distance = [newLocation distanceFromLocation:self.trackingLocation];
     if (distance >= kDistanceFilter) {
         self.distance = distance;
     }
-    double dir = atan(abs((newLocation.coordinate.longitude - self.trackingLocation.coordinate.longitude) / (newLocation.coordinate.latitude - self.trackingLocation.coordinate.latitude)));
-    if (newLocation.coordinate.latitude >= self.trackingLocation.coordinate.latitude) {
-        if (newLocation.coordinate.longitude >= self.trackingLocation.coordinate.longitude) {
-            dir += M_PI;
-        } else {
-            dir = M_PI - dir;
-        }
+    double dir;
+    if (newLocation.coordinate.longitude == self.trackingLocation.coordinate.longitude && newLocation.coordinate.latitude == self.trackingLocation.coordinate.latitude) {
+        dir = 0;
     } else {
-        if (newLocation.coordinate.longitude >= self.trackingLocation.coordinate.longitude) {
-            dir = 2 * M_PI - dir;
+        dir = atan(abs((newLocation.coordinate.longitude - self.trackingLocation.coordinate.longitude) / (newLocation.coordinate.latitude - self.trackingLocation.coordinate.latitude)));
+        if (newLocation.coordinate.latitude >= self.trackingLocation.coordinate.latitude) {
+            if (newLocation.coordinate.longitude > self.trackingLocation.coordinate.longitude) {
+                dir += M_PI;
+            } else {
+                dir = M_PI - dir;
+            }
+        } else {
+            if (newLocation.coordinate.longitude > self.trackingLocation.coordinate.longitude) {
+                dir = 2 * M_PI - dir;
+            }
         }
     }
+    NSLog(@"%f", dir);
     self.relativeDirection = dir;
 }
 
@@ -146,13 +162,22 @@ static const double kHeadingFilter = 10.0;
 {
     if (newHeading.headingAccuracy < 0) return;
     double theHeading = ((newHeading.trueHeading > 0) ? newHeading.trueHeading : newHeading.magneticHeading);
+    NSLog(@"%f", theHeading);
     theHeading *=  M_PI / 180.0;
-    theHeading *= self.isFaceDown ? -1 : 1;
-    if (self.relativeDirection >= theHeading) {
-        self.direction = self.relativeDirection - theHeading;
-    } else {
-        self.direction = self.relativeDirection - theHeading + 2 * M_PI;
+    if (self.isFaceDown) {
+        if (theHeading < M_PI) {
+            theHeading += M_PI;
+        } else {
+            theHeading -= M_PI;
+        }
     }
+    NSLog(@"%f", theHeading * 180.0 / M_PI);
+    if (self.relativeDirection < theHeading) {
+        theHeading -= 2 * M_PI;
+        
+    }
+    theHeading *= self.isFaceDown ? -1 : 1;
+    self.direction = self.relativeDirection - theHeading;
     
 }
 

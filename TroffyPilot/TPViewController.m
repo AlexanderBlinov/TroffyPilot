@@ -63,7 +63,8 @@ static double previousDirection = 0;
 - (void)changeTrackerReverse:(TPDistanceTracker *)tracker withButton:(UIButton *)button;
 - (void)resetTracker:(TPDistanceTracker *)tracker;
 - (void)rotateDirectionLayerToDirection:(double)direction;
-- (void)deleteLocation;
+- (void)deleteLocationAtIndexPath:(NSIndexPath *)indexPath;
+- (void)selectLocationAtIndexPath:(NSIndexPath *)indexPath;
 
 @end
 
@@ -111,8 +112,9 @@ static double previousDirection = 0;
     [self.directionImage.layer addSublayer:self.directionLayer];
     if ([[TPSharedLocations sharedLocations] locationsCount] > 0) {
         NSIndexPath *indPath = [NSIndexPath indexPathForRow:[[TPSharedLocations sharedLocations] locationsCount] - 1 inSection:0];
-        [self.locationsCollectionView selectItemAtIndexPath:indPath animated:YES scrollPosition:UICollectionViewScrollPositionRight];
-        self.locationTracker.trackingLocation = [[TPSharedLocations sharedLocations] lastLocation];
+        [self selectLocationAtIndexPath:indPath];
+        /*[self.locationsCollectionView selectItemAtIndexPath:indPath animated:YES scrollPosition:UICollectionViewScrollPositionRight];
+        self.locationTracker.trackingLocation = [[TPSharedLocations sharedLocations] lastLocation];*/
     }
 }
 
@@ -166,23 +168,25 @@ static double previousDirection = 0;
     previousDirection = direction;
 }
 
-- (void)deleteLocation
+- (void)deleteLocationAtIndexPath:(NSIndexPath *)indexPath
 {
     __weak TPViewController *viewController = self;
     [self.locationsCollectionView performBatchUpdates:^{
-        [[TPSharedLocations sharedLocations] removeLocationAtIndex:viewController.indexPathToBeDeleted.row];
-        [viewController.locationsCollectionView deleteItemsAtIndexPaths:@[viewController.indexPathToBeDeleted]];
+        [[TPSharedLocations sharedLocations] removeLocationAtIndex:indexPath.row];
+        [viewController.locationsCollectionView deleteItemsAtIndexPaths:@[indexPath]];
     } completion:^(BOOL finished) {
         if (finished) {
             [viewController.locationsCollectionView reloadData];
             NSUInteger locationsCount = [[TPSharedLocations sharedLocations] locationsCount];
             if (locationsCount > 0) {
-                if (locationsCount <= viewController.indexPathToBeDeleted.row) {
-                    NSIndexPath *indPath = [NSIndexPath indexPathForRow:locationsCount - 1 inSection:0];
-                    [viewController.locationsCollectionView selectItemAtIndexPath:indPath animated:YES scrollPosition:UICollectionViewScrollPositionCenteredHorizontally];
+                if (locationsCount <= indexPath.row) {
+                    NSIndexPath *lastIndexPath = [NSIndexPath indexPathForRow:locationsCount - 1 inSection:0];
+                    [viewController selectLocationAtIndexPath:lastIndexPath];
+                    /*[viewController.locationsCollectionView selectItemAtIndexPath:lastIndexPath animated:YES scrollPosition:UICollectionViewScrollPositionRight];*/
                 } else {
-                    [viewController.locationsCollectionView selectItemAtIndexPath:viewController.indexPathToBeDeleted animated:YES scrollPosition:UICollectionViewScrollPositionRight];
-                viewController.locationTracker.trackingLocation = [[TPSharedLocations sharedLocations] locationAtIndex:[viewController.indexPathToBeDeleted  row]];
+                    [viewController selectLocationAtIndexPath:indexPath];
+                    /*[viewController.locationsCollectionView selectItemAtIndexPath:indexPath animated:YES scrollPosition:UICollectionViewScrollPositionRight];
+                    viewController.locationTracker.trackingLocation = [[TPSharedLocations sharedLocations] locationAtIndex:indexPath.row];*/
                 }
             } else {
                 viewController.locationTracker.trackingLocation = nil;
@@ -190,6 +194,12 @@ static double previousDirection = 0;
         }
     }];
     [[TPSharedLocations sharedLocations] saveLocations];
+}
+
+- (void)selectLocationAtIndexPath:(NSIndexPath *)indexPath
+{
+    [self.locationsCollectionView selectItemAtIndexPath:indexPath animated:YES scrollPosition:UICollectionViewScrollPositionRight];
+    self.locationTracker.trackingLocation = [[TPSharedLocations sharedLocations] locationAtIndex:indexPath.row];
 }
 
 #pragma mark - Target-Action
@@ -252,7 +262,8 @@ static double previousDirection = 0;
         [self.locationsCollectionView reloadData];
         NSUInteger indexOfLocation = [[TPSharedLocations sharedLocations] indexOfLocation:location];
         NSIndexPath *indPath = [NSIndexPath indexPathForRow:indexOfLocation inSection:0];
-        [self.locationsCollectionView selectItemAtIndexPath:indPath animated:YES scrollPosition:UICollectionViewScrollPositionRight];
+        /*[self.locationsCollectionView selectItemAtIndexPath:indPath animated:YES scrollPosition:UICollectionViewScrollPositionRight];*/
+        [self selectLocationAtIndexPath:indPath];
         [[TPSharedLocations sharedLocations] saveLocations];
     }
 }
@@ -319,10 +330,11 @@ static double previousDirection = 0;
         {
             const NSInteger kOkButtonIndex = 1;
             if (buttonIndex == kOkButtonIndex) {
-                [self deleteLocation];
+                [self deleteLocationAtIndexPath:self.indexPathToBeDeleted];
             } else {
-                [self.locationsCollectionView selectItemAtIndexPath:self.indexPathToBeDeleted animated:YES scrollPosition:UICollectionViewScrollPositionRight];
-                self.locationTracker.trackingLocation = [[TPSharedLocations sharedLocations] locationAtIndex:[self.indexPathToBeDeleted row]];
+                [self selectLocationAtIndexPath:self.indexPathToBeDeleted];
+                /*[self.locationsCollectionView selectItemAtIndexPath:self.indexPathToBeDeleted animated:YES scrollPosition:UICollectionViewScrollPositionRight];
+                self.locationTracker.trackingLocation = [[TPSharedLocations sharedLocations] locationAtIndex:[self.indexPathToBeDeleted row]];*/
             }
         }
             break;
