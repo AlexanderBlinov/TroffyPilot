@@ -95,11 +95,10 @@ static const double kHeadingFilter = 6.0;
     [self resetHeadingUpdates];
 }
 
-- (CLLocation *)addLocation
+- (CLLocation *)generateLocation
 {
     if ([CLLocationManager locationServicesEnabled]) {
         CLLocation *location = [self.locationManager location];
-        [self.loactionsStorage addLocation:location];
         return location;
     }
     return nil;

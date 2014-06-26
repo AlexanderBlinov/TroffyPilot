@@ -87,7 +87,6 @@ static double previousDirection = 0;
         self.speedTracker.delegate = self;
         [self.speedTracker startTracking];
         self.locationTracker = [[TPLocationTracker alloc] init];
-        self.locationTracker.loactionsStorage = self.locationsStorage;
         self.locationTracker.delegate = self;
     }
     return self;
@@ -257,8 +256,9 @@ static double previousDirection = 0;
 
 - (IBAction)trackLocation:(id)sender
 {
-    CLLocation *location = [self.locationTracker addLocation];
+    CLLocation *location = [self.locationTracker generateLocation];
     if (location) {
+        [self.locationsStorage addLocation:location];
         [self.locationsCollectionView reloadData];
         NSUInteger indexOfLocation = [self.locationsStorage indexOfLocation:location];
         NSIndexPath *indPath = [NSIndexPath indexPathForRow:indexOfLocation inSection:0];
