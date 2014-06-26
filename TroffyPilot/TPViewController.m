@@ -19,11 +19,11 @@
 
 static NSString * const kLocationCellIdentifier = @"LocationCell";
 static NSString * const kAnimateDirection = @"animateDirection";
-static NSString * const kReverseOn = @"ReverseOn.png";
-static NSString * const kReverseOff = @"ReverseOff.png";
-static NSString * const kStart = @"Start.png";
-static NSString * const kStop = @"Stop.png";
-static NSString * const kDirection = @"Direction.png";
+static NSString * const kReverseOn = @"ReverseOn";
+static NSString * const kReverseOff = @"ReverseOff";
+static NSString * const kStart = @"Start";
+static NSString * const kStop = @"Stop";
+static NSString * const kDirection = @"Direction";
 static const double kStartDistanceValue = 0.0;
 static const double kStartSpeedValue = 0.0;
 static const NSInteger kDeleteAlert = 1;
@@ -78,10 +78,10 @@ static double previousDirection = 0;
     if (self) {
         self.locationsStorage = [[TPLocationsStorage alloc] init];
         self.primaryTracker = [[TPDistanceTracker alloc] init];
-        self.primaryTracker.isReverse = NO;
+        self.primaryTracker.isReversed = NO;
         self.primaryTracker.delegate = self;
         self.secondaryTracker = [[TPDistanceTracker alloc] init];
-        self.secondaryTracker.isReverse = NO;
+        self.secondaryTracker.isReversed = NO;
         self.secondaryTracker.delegate = self;
         self.speedTracker = [[TPSpeedTracker alloc] init];
         self.speedTracker.delegate = self;
@@ -100,8 +100,7 @@ static double previousDirection = 0;
     self.secondaryDistanceLabel.text = [NSString stringWithDistance:kStartDistanceValue];
     self.speedLabel.text = [NSString stringWithSpeed:kStartSpeedValue];
     self.trackingDistance.text = [NSString stringWithDistance:kStartDistanceValue];
-    self.locationsDataSource = [[TPLocationsCollectionViewDataSource alloc] init];
-    self.locationsDataSource.locationsStorage = self.locationsStorage;
+    self.locationsDataSource = [[TPLocationsCollectionViewDataSource alloc] initWithStorage:self.locationsStorage];
     self.locationsCollectionView.dataSource = self.locationsDataSource;
     [self.locationsCollectionView registerClass:[TPLocationCell class] forCellWithReuseIdentifier:kLocationCellIdentifier];
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
@@ -138,11 +137,11 @@ static double previousDirection = 0;
 
 - (void)changeTrackerReverse:(TPDistanceTracker *)tracker withButton:(UIButton *)button
 {
-    if (tracker.isReverse) {
-        tracker.isReverse = NO;
+    if (tracker.isReversed) {
+        tracker.isReversed = NO;
         [button setImage:[UIImage imageNamed:kReverseOff] forState:UIControlStateNormal];
     } else {
-        tracker.isReverse = YES;
+        tracker.isReversed = YES;
         [button setImage:[UIImage imageNamed:kReverseOn] forState:UIControlStateNormal];
     }
 }
@@ -223,8 +222,11 @@ static double previousDirection = 0;
 
 - (IBAction)changeStatePrimary:(id)sender
 {
+    if (self.primaryTracker.isStarted == self.secondaryTracker.isStarted) {
+        [self changeTrackerState:self.secondaryTracker withButton:self.secondaryStateButton];
+    }
     [self changeTrackerState:self.primaryTracker withButton:self.primaryStateButton];
-    [self changeTrackerState:self.secondaryTracker withButton:self.secondaryStateButton];
+    
 }
 
 - (IBAction)changeStateSecondary:(id)sender
@@ -234,8 +236,10 @@ static double previousDirection = 0;
 
 - (IBAction)reversePrimary:(id)sender
 {
+    if (self.primaryTracker.isReversed == self.secondaryTracker.isReversed) {
+        [self changeTrackerReverse:self.secondaryTracker withButton:self.secondaryReverseButton];
+    }
     [self changeTrackerReverse:self.primaryTracker withButton:self.primaryReverseButton];
-    [self changeTrackerReverse:self.secondaryTracker withButton:self.secondaryReverseButton];
 }
 
 - (IBAction)reverseSecondary:(id)sender

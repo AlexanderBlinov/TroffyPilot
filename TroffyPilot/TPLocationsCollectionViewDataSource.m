@@ -12,7 +12,22 @@
 
 static NSString * const kLocationCellIdentifier = @"LocationCell";
 
+@interface TPLocationsCollectionViewDataSource ()
+
+@property (nonatomic, strong) TPLocationsStorage *locationsStorage;
+
+@end
+
 @implementation TPLocationsCollectionViewDataSource
+
+- (id)initWithStorage:(TPLocationsStorage *)locationsStorage
+{
+    self = [super init];
+    if (self) {
+        self.locationsStorage = locationsStorage;
+    }
+    return self;
+}
 
 #pragma mark - Collection view data source
 

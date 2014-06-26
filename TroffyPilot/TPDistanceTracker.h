@@ -13,7 +13,7 @@
 @interface TPDistanceTracker : NSObject <CLLocationManagerDelegate>
 
 @property (nonatomic, weak) id <TPDistanceTrackerDelegate> delegate;
-@property (nonatomic) BOOL isReverse;
+@property (nonatomic) BOOL isReversed;
 @property (nonatomic) BOOL isStarted;
 
 - (void)startTracking;

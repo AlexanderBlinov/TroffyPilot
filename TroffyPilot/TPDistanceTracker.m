@@ -68,7 +68,7 @@ extern const double kDistanceFilter;
     if (self.lastUpdatedLocation != nil) {
         double distance = [newLocation distanceFromLocation:self.lastUpdatedLocation];
         if (distance >= kDistanceFilter) {
-            self.distance += distance * (self.isReverse ? -1 : 1);
+            self.distance += distance * (self.isReversed ? -1 : 1);
         }
     }
     self.lastUpdatedLocation = newLocation;

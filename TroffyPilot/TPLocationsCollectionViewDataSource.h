@@ -12,6 +12,6 @@
 
 @interface TPLocationsCollectionViewDataSource : NSObject <UICollectionViewDataSource>
 
-@property (nonatomic, strong) TPLocationsStorage *locationsStorage;
+- (id)initWithStorage:(TPLocationsStorage *)locationsStorage;
 
 @end

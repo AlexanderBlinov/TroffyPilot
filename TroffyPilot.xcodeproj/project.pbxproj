@@ -14,20 +14,13 @@
 		3F7C69081948ADF400B60796 /* TPSpeedTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F7C69071948ADF400B60796 /* TPSpeedTracker.m */; };
 		3F7C690B1948AF8F00B60796 /* NSString+DistanceAndSpeed.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F7C690A1948AF8F00B60796 /* NSString+DistanceAndSpeed.m */; };
 		3F7C690E1948B37700B60796 /* TPDistanceTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F7C690D1948B37700B60796 /* TPDistanceTracker.m */; };
-		3F7D97DD1947267D006A07A1 /* Stop.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F7D97DB1947267D006A07A1 /* Stop.png */; };
 		3FA80F5219542C3B002B483D /* TPLocationsCollectionViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FA80F5119542C3B002B483D /* TPLocationsCollectionViewDataSource.m */; };
-		3FA80F541954541D002B483D /* Start.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FA80F531954541D002B483D /* Start.png */; };
-		3FA80F5A19546816002B483D /* ReverseOff.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FA80F5919546816002B483D /* ReverseOff.png */; };
-		3FA80F5C1954691C002B483D /* ReverseOn.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FA80F5B1954691C002B483D /* ReverseOn.png */; };
-		3FA80F5E1954740B002B483D /* Reset.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FA80F5D1954740B002B483D /* Reset.png */; };
-		3FA80F6019547DF9002B483D /* Direction.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FA80F5F19547DF9002B483D /* Direction.png */; };
-		3FA80F62195483DF002B483D /* Track.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FA80F61195483DF002B483D /* Track.png */; };
 		3FAF87C9194B27740096A507 /* TPLocationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FAF87C8194B27740096A507 /* TPLocationCell.m */; };
 		3FB236B8194EDCFB00FA9622 /* TPLocationsStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FB236B7194EDCFB00FA9622 /* TPLocationsStorage.m */; };
+		3FB2C9D3195C401C00B17AF6 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FB2C9D2195C401C00B17AF6 /* Default-568h@2x.png */; };
 		3FB7F9D5194F2A6800170F48 /* TPLocationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3FB7F9D4194F2A6800170F48 /* TPLocationCell.xib */; };
 		3FBD268D193E25200056D4F1 /* TPViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FBD268B193E25200056D4F1 /* TPViewController.m */; };
 		3FBD268E193E25200056D4F1 /* TPViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3FBD268C193E25200056D4F1 /* TPViewController.xib */; };
-		3FC135571948646000DC7757 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FC135561948646000DC7757 /* Default-568h@2x.png */; };
 		3FD498B2193E01EA008CBB2A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FD498B1193E01EA008CBB2A /* Foundation.framework */; };
 		3FD498B4193E01EA008CBB2A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FD498B3193E01EA008CBB2A /* CoreGraphics.framework */; };
 		3FD498B6193E01EA008CBB2A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FD498B5193E01EA008CBB2A /* UIKit.framework */; };
@@ -74,24 +67,17 @@
 		3F7C690C1948B37700B60796 /* TPDistanceTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPDistanceTracker.h; sourceTree = "<group>"; };
 		3F7C690D1948B37700B60796 /* TPDistanceTracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPDistanceTracker.m; sourceTree = "<group>"; };
 		3F7C690F1948B38C00B60796 /* TPDistanceTrackerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPDistanceTrackerDelegate.h; sourceTree = "<group>"; };
-		3F7D97DB1947267D006A07A1 /* Stop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Stop.png; sourceTree = "<group>"; };
 		3FA80F5019542C3B002B483D /* TPLocationsCollectionViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPLocationsCollectionViewDataSource.h; sourceTree = "<group>"; };
 		3FA80F5119542C3B002B483D /* TPLocationsCollectionViewDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPLocationsCollectionViewDataSource.m; sourceTree = "<group>"; };
-		3FA80F531954541D002B483D /* Start.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Start.png; sourceTree = "<group>"; };
-		3FA80F5919546816002B483D /* ReverseOff.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ReverseOff.png; sourceTree = "<group>"; };
-		3FA80F5B1954691C002B483D /* ReverseOn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ReverseOn.png; sourceTree = "<group>"; };
-		3FA80F5D1954740B002B483D /* Reset.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Reset.png; sourceTree = "<group>"; };
-		3FA80F5F19547DF9002B483D /* Direction.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Direction.png; sourceTree = "<group>"; };
-		3FA80F61195483DF002B483D /* Track.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Track.png; sourceTree = "<group>"; };
 		3FAF87C7194B27740096A507 /* TPLocationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPLocationCell.h; sourceTree = "<group>"; };
 		3FAF87C8194B27740096A507 /* TPLocationCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPLocationCell.m; sourceTree = "<group>"; };
 		3FB236B6194EDCFB00FA9622 /* TPLocationsStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPLocationsStorage.h; sourceTree = "<group>"; };
 		3FB236B7194EDCFB00FA9622 /* TPLocationsStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPLocationsStorage.m; sourceTree = "<group>"; };
+		3FB2C9D2195C401C00B17AF6 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		3FB7F9D4194F2A6800170F48 /* TPLocationCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TPLocationCell.xib; sourceTree = "<group>"; };
 		3FBD268A193E25200056D4F1 /* TPViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPViewController.h; sourceTree = "<group>"; };
 		3FBD268B193E25200056D4F1 /* TPViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPViewController.m; sourceTree = "<group>"; };
 		3FBD268C193E25200056D4F1 /* TPViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TPViewController.xib; sourceTree = "<group>"; };
-		3FC135561948646000DC7757 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		3FD498AE193E01EA008CBB2A /* TroffyPilot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TroffyPilot.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3FD498B1193E01EA008CBB2A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		3FD498B3193E01EA008CBB2A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -137,21 +123,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		3F128DE1195880FF0033C586 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				3FA80F61195483DF002B483D /* Track.png */,
-				3FA80F5F19547DF9002B483D /* Direction.png */,
-				3FA80F5D1954740B002B483D /* Reset.png */,
-				3FA80F5B1954691C002B483D /* ReverseOn.png */,
-				3FA80F5919546816002B483D /* ReverseOff.png */,
-				3FA80F531954541D002B483D /* Start.png */,
-				3FC135561948646000DC7757 /* Default-568h@2x.png */,
-				3F7D97DB1947267D006A07A1 /* Stop.png */,
-			);
-			name = Resources;
-			sourceTree = "<group>";
-		};
 		3F128DE8195888E40033C586 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -271,7 +242,7 @@
 		3FD498A5193E01EA008CBB2A = {
 			isa = PBXGroup;
 			children = (
-				3F128DE1195880FF0033C586 /* Resources */,
+				3FB2C9D2195C401C00B17AF6 /* Default-568h@2x.png */,
 				3FD498B7193E01EA008CBB2A /* TroffyPilot */,
 				3FD498D0193E01EA008CBB2A /* TroffyPilotTests */,
 				3FD498B0193E01EA008CBB2A /* Frameworks */,
@@ -424,19 +395,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3FA80F5A19546816002B483D /* ReverseOff.png in Resources */,
 				3FB7F9D5194F2A6800170F48 /* TPLocationCell.xib in Resources */,
-				3F7D97DD1947267D006A07A1 /* Stop.png in Resources */,
 				3F128DE41958852A0033C586 /* Localizable.strings in Resources */,
-				3FA80F6019547DF9002B483D /* Direction.png in Resources */,
 				3FD6E8331948979E00BA36ED /* Location.gpx in Resources */,
-				3FC135571948646000DC7757 /* Default-568h@2x.png in Resources */,
-				3FA80F62195483DF002B483D /* Track.png in Resources */,
-				3FA80F5E1954740B002B483D /* Reset.png in Resources */,
-				3FA80F541954541D002B483D /* Start.png in Resources */,
 				3FD498BC193E01EA008CBB2A /* InfoPlist.strings in Resources */,
 				3FD498C4193E01EA008CBB2A /* Images.xcassets in Resources */,
-				3FA80F5C1954691C002B483D /* ReverseOn.png in Resources */,
+				3FB2C9D3195C401C00B17AF6 /* Default-568h@2x.png in Resources */,
 				3FBD268E193E25200056D4F1 /* TPViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
