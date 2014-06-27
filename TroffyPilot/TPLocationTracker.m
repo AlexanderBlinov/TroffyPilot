@@ -166,7 +166,6 @@ static const double kHeadingFilter = 6.0;
         }
         theHeading = 2 * M_PI - theHeading;
     }
-    NSLog(@"%f", theHeading);
     if (self.relativeDirection < theHeading) {
         theHeading -= 2 * M_PI;
         
