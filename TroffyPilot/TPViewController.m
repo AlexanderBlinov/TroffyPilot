@@ -95,24 +95,30 @@ static double previousDirection = 0;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
     [self setNeedsStatusBarAppearanceUpdate];
+    
     self.primaryDistanceLabel.text = [NSString stringWithDistance:kStartDistanceValue];
     self.secondaryDistanceLabel.text = [NSString stringWithDistance:kStartDistanceValue];
     self.speedLabel.text = [NSString stringWithSpeed:kStartSpeedValue];
     self.trackingDistance.text = [NSString stringWithDistance:kStartDistanceValue];
+    
     self.locationsDataSource = [[TPLocationsCollectionViewDataSource alloc] initWithStorage:self.locationsStorage];
     self.locationsCollectionView.dataSource = self.locationsDataSource;
+    
     [self.locationsCollectionView registerClass:[TPLocationCell class] forCellWithReuseIdentifier:kLocationCellIdentifier];
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
     [layout setItemSize:CGSizeMake(50, 50)];
     [layout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
     [self.locationsCollectionView setCollectionViewLayout:layout];
     self.locationsCollectionView.allowsSelection = YES;
+    
     self.directionLayer = [CALayer layer];
     self.directionLayer.position = CGPointMake(25.0f, 25.0f);
     self.directionLayer.bounds = CGRectMake(0, 0, 50.0f, 50.0f);
     self.directionLayer.contents = (id)[[UIImage imageNamed:kDirection] CGImage];
     [self.directionImage.layer addSublayer:self.directionLayer];
+    
     if ([self.locationsStorage locationsCount] > 0) {
         NSIndexPath *indPath = [NSIndexPath indexPathForRow:[self.locationsStorage locationsCount] - 1 inSection:0];
         [self selectLocationAtIndexPath:indPath];

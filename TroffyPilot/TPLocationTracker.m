@@ -160,11 +160,13 @@ static const double kHeadingFilter = 6.0;
     theHeading *=  M_PI / 180.0;
     if (self.isFaceDown) {
         if (theHeading < M_PI) {
-            theHeading += M_PI;
+            theHeading = M_PI - theHeading;
         } else {
-            theHeading -= M_PI;
+            theHeading = 3 * M_PI - theHeading;
         }
+        theHeading = 2 * M_PI - theHeading;
     }
+    NSLog(@"%f", theHeading);
     if (self.relativeDirection < theHeading) {
         theHeading -= 2 * M_PI;
         
