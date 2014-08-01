@@ -11,7 +11,7 @@
 #import "TPSpeedTrackerDelegate.h"
 #import "TPLocationTrackerDelegate.h"
 
-@interface TPViewController : UIViewController <TPDistanceTrackerDelegate, TPSpeedTrackerDelegate, TPLocationTrackerDelegate, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UIAlertViewDelegate>
+@interface TPViewController : UIViewController <TPDistanceTrackerDelegate, TPSpeedTrackerDelegate, TPLocationTrackerDelegate, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UIAlertViewDelegate, UIActionSheetDelegate>
 
 
 

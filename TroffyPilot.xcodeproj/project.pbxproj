@@ -11,13 +11,15 @@
 		3F0743DA19406EDA00E0B938 /* TPDistanceValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F0743D919406EDA00E0B938 /* TPDistanceValueTransformer.m */; };
 		3F128DE41958852A0033C586 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3F128DE61958852A0033C586 /* Localizable.strings */; };
 		3F6D394B1949D035002C596A /* TPLocationTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F6D394A1949D035002C596A /* TPLocationTracker.m */; };
+		3F762892198BC8D50050A697 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F76288F198BC8D50050A697 /* Default-568h@2x.png */; };
+		3F762893198BC8D50050A697 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F762890198BC8D50050A697 /* Default.png */; };
+		3F762894198BC8D50050A697 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F762891198BC8D50050A697 /* Default@2x.png */; };
 		3F7C69081948ADF400B60796 /* TPSpeedTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F7C69071948ADF400B60796 /* TPSpeedTracker.m */; };
 		3F7C690B1948AF8F00B60796 /* NSString+DistanceAndSpeed.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F7C690A1948AF8F00B60796 /* NSString+DistanceAndSpeed.m */; };
 		3F7C690E1948B37700B60796 /* TPDistanceTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F7C690D1948B37700B60796 /* TPDistanceTracker.m */; };
 		3FA80F5219542C3B002B483D /* TPLocationsCollectionViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FA80F5119542C3B002B483D /* TPLocationsCollectionViewDataSource.m */; };
 		3FAF87C9194B27740096A507 /* TPLocationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FAF87C8194B27740096A507 /* TPLocationCell.m */; };
 		3FB236B8194EDCFB00FA9622 /* TPLocationsStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FB236B7194EDCFB00FA9622 /* TPLocationsStorage.m */; };
-		3FB2C9D3195C401C00B17AF6 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FB2C9D2195C401C00B17AF6 /* Default-568h@2x.png */; };
 		3FB7F9D5194F2A6800170F48 /* TPLocationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3FB7F9D4194F2A6800170F48 /* TPLocationCell.xib */; };
 		3FBD268D193E25200056D4F1 /* TPViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FBD268B193E25200056D4F1 /* TPViewController.m */; };
 		3FBD268E193E25200056D4F1 /* TPViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3FBD268C193E25200056D4F1 /* TPViewController.xib */; };
@@ -59,6 +61,9 @@
 		3F6D39491949D034002C596A /* TPLocationTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPLocationTracker.h; sourceTree = "<group>"; };
 		3F6D394A1949D035002C596A /* TPLocationTracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPLocationTracker.m; sourceTree = "<group>"; };
 		3F6D394C1949E63D002C596A /* TPLocationTrackerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPLocationTrackerDelegate.h; sourceTree = "<group>"; };
+		3F76288F198BC8D50050A697 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		3F762890198BC8D50050A697 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		3F762891198BC8D50050A697 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		3F7C69051948ADD400B60796 /* TPSpeedTrackerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPSpeedTrackerDelegate.h; sourceTree = "<group>"; };
 		3F7C69061948ADF400B60796 /* TPSpeedTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPSpeedTracker.h; sourceTree = "<group>"; };
 		3F7C69071948ADF400B60796 /* TPSpeedTracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPSpeedTracker.m; sourceTree = "<group>"; };
@@ -73,7 +78,6 @@
 		3FAF87C8194B27740096A507 /* TPLocationCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPLocationCell.m; sourceTree = "<group>"; };
 		3FB236B6194EDCFB00FA9622 /* TPLocationsStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPLocationsStorage.h; sourceTree = "<group>"; };
 		3FB236B7194EDCFB00FA9622 /* TPLocationsStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPLocationsStorage.m; sourceTree = "<group>"; };
-		3FB2C9D2195C401C00B17AF6 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		3FB7F9D4194F2A6800170F48 /* TPLocationCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TPLocationCell.xib; sourceTree = "<group>"; };
 		3FBD268A193E25200056D4F1 /* TPViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPViewController.h; sourceTree = "<group>"; };
 		3FBD268B193E25200056D4F1 /* TPViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPViewController.m; sourceTree = "<group>"; };
@@ -242,7 +246,9 @@
 		3FD498A5193E01EA008CBB2A = {
 			isa = PBXGroup;
 			children = (
-				3FB2C9D2195C401C00B17AF6 /* Default-568h@2x.png */,
+				3F76288F198BC8D50050A697 /* Default-568h@2x.png */,
+				3F762890198BC8D50050A697 /* Default.png */,
+				3F762891198BC8D50050A697 /* Default@2x.png */,
 				3FD498B7193E01EA008CBB2A /* TroffyPilot */,
 				3FD498D0193E01EA008CBB2A /* TroffyPilotTests */,
 				3FD498B0193E01EA008CBB2A /* Frameworks */,
@@ -398,9 +404,11 @@
 				3FB7F9D5194F2A6800170F48 /* TPLocationCell.xib in Resources */,
 				3F128DE41958852A0033C586 /* Localizable.strings in Resources */,
 				3FD6E8331948979E00BA36ED /* Location.gpx in Resources */,
+				3F762894198BC8D50050A697 /* Default@2x.png in Resources */,
+				3F762893198BC8D50050A697 /* Default.png in Resources */,
 				3FD498BC193E01EA008CBB2A /* InfoPlist.strings in Resources */,
 				3FD498C4193E01EA008CBB2A /* Images.xcassets in Resources */,
-				3FB2C9D3195C401C00B17AF6 /* Default-568h@2x.png in Resources */,
+				3F762892198BC8D50050A697 /* Default-568h@2x.png in Resources */,
 				3FBD268E193E25200056D4F1 /* TPViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -564,7 +572,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TroffyPilot/TroffyPilot-Prefix.pch";
 				INFOPLIST_FILE = "TroffyPilot/TroffyPilot-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
@@ -578,7 +586,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TroffyPilot/TroffyPilot-Prefix.pch";
 				INFOPLIST_FILE = "TroffyPilot/TroffyPilot-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;

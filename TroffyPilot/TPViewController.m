@@ -26,7 +26,7 @@ static NSString * const kStop = @"Stop";
 static NSString * const kDirection = @"Direction";
 static const double kStartDistanceValue = 0.0;
 static const double kStartSpeedValue = 0.0;
-static const NSInteger kDeleteAlert = 1;
+static const NSInteger kDeleteSheet = 1;
 static const NSInteger kErrorAlert = -1;
 static double previousDirection = 0;
 
@@ -65,6 +65,7 @@ static double previousDirection = 0;
 - (void)changeTrackerReverse:(TPDistanceTracker *)tracker withButton:(UIButton *)button;
 - (void)resetTracker:(TPDistanceTracker *)tracker;
 - (void)rotateDirectionLayerToDirection:(double)direction;
+- (void)deleteAllLocations;
 - (void)deleteLocationAtIndexPath:(NSIndexPath *)indexPath;
 - (void)selectLocationAtIndexPath:(NSIndexPath *)indexPath;
 
@@ -175,11 +176,28 @@ static double previousDirection = 0;
     previousDirection = direction;
 }
 
+- (void)deleteAllLocations
+{
+    __weak TPViewController *viewController = self;
+    [self.locationsCollectionView performBatchUpdates:^{
+        NSMutableArray *indexPathsToDelete = [NSMutableArray array];
+        for (int i = 0; i < viewController.locationsStorage.locationsCount; ++i) {
+            [indexPathsToDelete addObject:[NSIndexPath indexPathForRow:i inSection:0]];
+        }
+        [viewController.locationsStorage removeAllLocations];
+        [viewController.locationsCollectionView deleteItemsAtIndexPaths:indexPathsToDelete];
+    } completion:^(BOOL finished) {
+        [viewController.locationsCollectionView reloadData];
+        viewController.locationTracker.trackingLocation = nil;
+    }];
+    [self.locationsStorage saveLocations];
+}
+
 - (void)deleteLocationAtIndexPath:(NSIndexPath *)indexPath
 {
     __weak TPViewController *viewController = self;
     [self.locationsCollectionView performBatchUpdates:^{
-        [self.locationsStorage removeLocationAtIndex:indexPath.row];
+        [viewController.locationsStorage removeLocationAtIndex:indexPath.row];
         [viewController.locationsCollectionView deleteItemsAtIndexPaths:@[indexPath]];
     } completion:^(BOOL finished) {
         if (finished) {
@@ -215,14 +233,10 @@ static double previousDirection = 0;
     NSIndexPath *indexPath = [self.locationsCollectionView indexPathForItemAtPoint:tapLocation];
     if (indexPath && gesture.state == UIGestureRecognizerStateBegan) {
         self.indexPathToBeDeleted = indexPath;
-        UIAlertView *deleteAlert = [[UIAlertView alloc]
-                                    initWithTitle:NSLocalizedString(@"DeleteTitle", nil)
-                                    message:NSLocalizedString(@"DeleteMessage", nil)
-                                    delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) otherButtonTitles:NSLocalizedString(@"Yes", nil), nil];
-        deleteAlert.tag = kDeleteAlert;
-        [deleteAlert show];
-        
-        
+        UIActionSheet *deleteSheet = [[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"DeleteTitle", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(@"DeleteSelected", nil), NSLocalizedString(@"DeleteAll", nil), nil];
+        deleteSheet.destructiveButtonIndex = 1;
+        deleteSheet.tag = kDeleteSheet;
+        [deleteSheet showInView:self.view];
     }
 }
 
@@ -335,17 +349,31 @@ static double previousDirection = 0;
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     switch (alertView.tag) {
-        case kDeleteAlert:
+        case kErrorAlert:
+            break;
+        default:
+            break;
+    }
+}
+
+#pragma mark - Action sheet delegate
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    switch (actionSheet.tag) {
+        case kDeleteSheet:
         {
-            const NSInteger kOkButtonIndex = 1;
-            if (buttonIndex == kOkButtonIndex) {
+            const NSInteger kDeleteSelectedButtonIndex = 0;
+            const NSInteger kDeleteAllButtonIndex = 1;
+            if (buttonIndex == kDeleteSelectedButtonIndex) {
                 [self deleteLocationAtIndexPath:self.indexPathToBeDeleted];
+            } else if (buttonIndex == kDeleteAllButtonIndex) {
+                [self deleteAllLocations];
             } else {
                 [self selectLocationAtIndexPath:self.indexPathToBeDeleted];
             }
+            
         }
-            break;
-        case kErrorAlert:
             break;
         default:
             break;

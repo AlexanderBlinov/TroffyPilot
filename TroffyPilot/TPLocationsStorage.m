@@ -37,6 +37,11 @@
     [self.locations removeObjectAtIndex:index];
 }
 
+- (void)removeAllLocations
+{
+    [self.locations removeAllObjects];
+}
+
 - (NSUInteger)locationsCount
 {
     return [self.locations count];
