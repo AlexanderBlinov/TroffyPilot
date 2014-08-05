@@ -41,6 +41,12 @@ static const double kHeadingFilter = 6.0;
     return self;
 }
 
+- (void)setHeadingOrientation:(CLDeviceOrientation)deviceOrientation
+{
+    self.locationManager.headingOrientation = deviceOrientation;
+    [self resetHeadingUpdates];
+}
+
 - (void)setTrackingLocation:(CLLocation *)trackingLocation
 {
     if (self.trackingLocation) {

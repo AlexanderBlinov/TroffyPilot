@@ -131,6 +131,15 @@ static double previousDirection = 0;
     return UIStatusBarStyleLightContent;
 }
 
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
+{
+    if (fromInterfaceOrientation == UIInterfaceOrientationLandscapeRight) {
+        [self.locationTracker setHeadingOrientation:CLDeviceOrientationLandscapeRight];
+    } else if (fromInterfaceOrientation == UIInterfaceOrientationLandscapeLeft) {
+        [self.locationTracker setHeadingOrientation:CLDeviceOrientationLandscapeLeft];
+    }
+}
+
 - (void)changeTrackerState:(TPDistanceTracker *)tracker withButton:(UIButton *)button
 {
     if (tracker.isStarted) {
@@ -171,7 +180,7 @@ static double previousDirection = 0;
     rotateAnimation.removedOnCompletion = NO;
     rotateAnimation.fromValue = [NSNumber numberWithDouble:previousDirection];
     rotateAnimation.toValue = [NSNumber numberWithDouble:direction];
-    rotateAnimation.duration = 0.1;
+    rotateAnimation.duration = abs(direction - previousDirection) / M_PI;
     [self.directionLayer addAnimation:rotateAnimation forKey:kAnimateDirection];
     previousDirection = direction;
 }

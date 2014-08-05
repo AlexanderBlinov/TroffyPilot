@@ -18,5 +18,6 @@
 @property (nonatomic, strong) CLLocation *trackingLocation;
 
 - (CLLocation *)generateLocation;
+- (void)setHeadingOrientation:(CLDeviceOrientation)deviceOrientation;
 
 @end
